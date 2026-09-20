@@ -97,7 +97,7 @@ export const useAuthStore = defineStore('auth', () => {
 
         const data = await $authClient.signIn.social({
             provider: "google",
-            callbackURL: "http://localhost:3000/dashboard"
+            callbackURL: "https://app.veltofinance.bid/dashboard"
         }, {
             onError(context) {
                 if (context.error.status === 500) {
@@ -120,7 +120,7 @@ export const useAuthStore = defineStore('auth', () => {
 
         const data = await $authClient.signIn.social({
             provider: "discord",
-            callbackURL: "http://localhost:3000/dashboard"
+            callbackURL: "https://app.veltofinance.bid/dashboard"
         }, {
             onError(context) {
                 if (context.error.status === 500) {

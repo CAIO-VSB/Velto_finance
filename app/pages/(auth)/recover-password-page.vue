@@ -29,7 +29,7 @@
           await $authClient.requestPasswordReset(
             {
               email: formEmail.value.email,
-              redirectTo: "http://localhost:3000/reset-password-page",
+              redirectTo: "https://app.veltofinance.bid/dashboard/reset-password-page",
             },
             {
               onRequest() {
