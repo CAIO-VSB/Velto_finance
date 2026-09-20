@@ -179,8 +179,8 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
         { name: 'Despesas', value: summary.value.despesas, color: '#FF6B6B' },
     ])
 
-    const { option: expenseOption } = useDonutChart(computed(() => expenseByCategorie.value ?? []))
-    const { option: renevueOption } = useDonutChart(computed(() => renevueByCategorie.value ?? []))
+    const { option: expenseOption } = useDonutChart(computed(() => expenseByCategorie.value ?? []), ['62%', '50%'] )
+    const { option: renevueOption } = useDonutChart(computed(() => renevueByCategorie.value ?? []), ['55%', '50%'])
     const { option: balancoOption } = useBarChart(barData)
     const { option: balanceExpenseThreeMonths } = useBarChart(computed(() => allExpenseThreeMonths.value ?? []))
     const { option: balanceEvolution } = useLineChart(computed(() => allBalanceEvolution.value ?? []))
@@ -383,33 +383,6 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
                 </div>
             </BaseCard>
 
-            <BaseCard :loading="isPendingByCategorieRenevue" title="Receitas por categoria" subtitle="Visualize a origem das suas receitas">
-                <div class="d-flex align-center justify-center"  v-if="!allMovements?.length" style="height: 510px;">
-                    <v-empty-state
-                        icon="mdi-chart-pie-outline"
-                        color="green"
-                        title="Nenhuma receita registrada"
-                        >
-                        <template #text>
-                            <span>Registre suas receitas para acompanhar a origem dos seus ganhos.</span>
-                        </template>
-                    </v-empty-state>
-                </div>
-                <div class="pa-5" v-else>
-                    <VChart class="mt-5" :option="renevueOption" autoresize style="height: 430px"/>
-                    <div class="d-flex justify-end pa-1">
-                        <v-sheet :width="220" :height="25" class="rounded-lg px-3" border>
-                            <span class="text-medium-emphasis">
-                                Total geral: 
-                            </span>
-                            <span class="font-weight-bold">
-                                {{ formatCurrency(totalByRenevue ?? 0.00) }}
-                            </span>
-                        </v-sheet>
-                    </div>
-                </div>
-            </BaseCard>
-
             <BaseCard :loading="isPendingExpenseByCategorie" title="Despesas por categoria" subtitle="Visualize onde seus gastos estão concentrados">
                 <div class="d-flex align-center justify-center"  v-if="!allMovements?.length" style="height: 510px;">
                     <v-empty-state
@@ -431,6 +404,33 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
                             </span>
                             <span class="font-weight-bold">
                                 {{ formatCurrency(totalByExpense ?? 0.00) }}
+                            </span>
+                        </v-sheet>
+                    </div>
+                </div>
+            </BaseCard>
+
+                        <BaseCard :loading="isPendingByCategorieRenevue" title="Receitas por categoria" subtitle="Visualize a origem das suas receitas">
+                <div class="d-flex align-center justify-center"  v-if="!allMovements?.length" style="height: 510px;">
+                    <v-empty-state
+                        icon="mdi-chart-pie-outline"
+                        color="green"
+                        title="Nenhuma receita registrada"
+                        >
+                        <template #text>
+                            <span>Registre suas receitas para acompanhar a origem dos seus ganhos.</span>
+                        </template>
+                    </v-empty-state>
+                </div>
+                <div class="pa-5" v-else>
+                    <VChart class="mt-5" :option="renevueOption" autoresize style="height: 430px"/>
+                    <div class="d-flex justify-end pa-1">
+                        <v-sheet :width="220" :height="25" class="rounded-lg px-3" border>
+                            <span class="text-medium-emphasis">
+                                Total geral: 
+                            </span>
+                            <span class="font-weight-bold">
+                                {{ formatCurrency(totalByRenevue ?? 0.00) }}
                             </span>
                         </v-sheet>
                     </div>

@@ -1,4 +1,4 @@
-import type  { EChartsOption as ECOption  } from "echarts"
+import type { EChartsOption as ECOption } from "echarts"
 import { useChartTheme } from "./useChartTheme"
 
 export type DonutDatum = {
@@ -6,8 +6,11 @@ export type DonutDatum = {
     value: number
 }
 
-export function useDonutChart(data: MaybeRefOrGetter<DonutDatum[]>) {
-    const {colors, textStyle } = useChartTheme()
+export function useDonutChart(
+    data: MaybeRefOrGetter<DonutDatum[]>,
+    center: MaybeRefOrGetter<[string, string]> = ['60%', '45%'] 
+) {
+    const { colors, textStyle } = useChartTheme()
 
     const option = computed<ECOption>(() => ({
         color: colors,
@@ -23,14 +26,14 @@ export function useDonutChart(data: MaybeRefOrGetter<DonutDatum[]>) {
             {
                 type: 'pie',
                 radius: ['45%', '70%'],
-                center: ['60%', '45%'],
+                center: toValue(center),   
                 avoidLabelOverlap: true,
-                itemStyle: {borderRadius: 10, borderColor: '#fff', borderWidth: 7},
+                itemStyle: { borderRadius: 10, borderColor: '#fff', borderWidth: 7 },
                 label: { formatter: '{b}\n{d}%' },
                 data: toValue(data)
             }
         ]
     }))
 
-    return {option}
+    return { option }
 }
