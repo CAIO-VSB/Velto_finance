@@ -92,9 +92,6 @@
         queryFn: () => getMoviments(period.value.month, period.value.year)
     })
 
-    watch(() => data.value, (val) => {
-        console.log("Valores aqui " + JSON.stringify(val?.filter(item => item.url_recibo)))
-    })
 
     const { data:currentBalance, isPending:isPendingCurrentBalance } = useQuery({
         queryKey: QUERY_KEYS.movements.current_balance,
@@ -749,7 +746,7 @@
                         </span>
                     </span>
                     <span v-if="item.url_recibo">
-                        <v-btn @click="openShowRecibo(item.url_recibo!)" v-tooltip="'Recibo'" variant="text" icon="mdi-image-area"></v-btn>
+                        <v-btn @click="openShowRecibo(item.url_recibo!)" v-tooltip="'Recibo'" color="primary" variant="text" icon="mdi-receipt-text-check"></v-btn>
                             <v-dialog max-width="500" v-model="showImageRecibo">
                                 <template v-slot:default="{ isActive }">
                                     <v-card rounded="lg" class="pa-2">

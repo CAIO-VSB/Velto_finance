@@ -255,11 +255,11 @@
           </v-card-text>
 
           <div class="pl-7 d-flex ga-5">
-            <v-switch size="small"color="primary" :true-value="true" :label="`Switch: ${changeIgnoredTransaction}`" :false-value="false" v-model="changeIgnoredTransaction" label="Ignorar transação" inset="material"></v-switch>
-            <div class="mt-2"> 
+            <v-switch size="small"color="primary" :true-value="true" :false-value="false" v-model="changeIgnoredTransaction" label="Ignorar transação" inset="material"></v-switch>
+            <div class="mt-1"> 
               <v-tooltip text="Ao marcar esta opção, nenhum débito será gerado em conta bancária. O lançamento servirá apenas para controle do seu progresso na meta." class="pt-3">
                 <template v-slot:activator="{ props }">
-                  <v-btn v-bind="props" variant="plain" icon="mdi-tooltip-question"></v-btn>
+                  <v-btn v-bind="props" variant="plain" icon="mdi-help-circle"></v-btn>
                 </template>
               </v-tooltip>
             </div>

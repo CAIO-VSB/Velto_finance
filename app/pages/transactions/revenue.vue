@@ -24,6 +24,8 @@
     import CardEditRecurrenceRevenue from '~/components/forms/CardEditRecurrenceRevenue.vue'
     import useOptions from '~/pages/transactions/composable/useOptions'
     import CardDeleteMovementRecurrence from '~/components/forms/CardDeleteMovementRecurrence.vue'
+    import BaseModal from "~/components/ui/BaseModal.vue"
+    import BaseUploadFile from '~/components/ui/BaseUploadFile.vue'
 
     type option = {
         title: string,
@@ -62,9 +64,21 @@
 
     const lastFilter = ref<TMovementsByFilter | null>(null)
 
+    const movementBeingAttached = ref<TMovementsSummary | null>(null)
+
     const drawer = ref(false)
 
     const search = ref('')
+
+    const modelUploadImage = ref(false)
+
+    const urlImage = ref("")
+
+    const showImageRecibo = ref(false)
+
+    const currentReciboUrl = ref<string | null>(null)
+        
+    const modalHelp = ref(false)
 
     const labelOptions = ref({
         colorButton: "",
@@ -246,6 +260,56 @@
         }
     }
 
+    function handleOpenModalUploadImage(movement: TMovementsSummary) {
+        modelUploadImage.value = true
+        movementBeingAttached.value = movement
+    }
+
+    function handleSubmitImageUpload(url: string) {
+
+        if (!movementBeingAttached.value) {
+            notifyError("Erro", "Não foi possível identificar a transação.", 7000)
+            return
+        }
+        
+        const raw = structuredClone(toRaw(movementBeingAttached.value))
+
+        if (!raw.date_transaction) {
+            notifyError(
+                "Data inválida",
+                "Não foi possível concluir a ação porque a data informada é inválida ou está ausente.",
+            )
+            return
+        }
+
+        const dateFormated = dateToDateOnly(raw.date_transaction)
+
+        const payload = {
+            ...raw,
+            value_transaction: Number(raw.value_transaction ?? 0),
+            date_transaction: dateFormated,
+            url_recibo: url
+        }
+        
+        mutate(payload)
+
+        movementBeingAttached.value = null
+        modelUploadImage.value = false
+        currentReciboUrl.value = null
+    }
+
+    function closeModalUploadImage() {
+        modelUploadImage.value = false
+    }
+
+    function openShowRecibo(url: string) {
+        currentReciboUrl.value = url
+        showImageRecibo.value = true
+    }
+
+    function closeModalHelpInvoice() {
+      modalHelp.value = false
+    }
 
     function getOptions(moviments: TMovementsSummary): TOptionAction [] {
 
@@ -314,7 +378,7 @@
         }
 
         if (option.value === "arquivo") {
-            notifyInfo("Em desenvolvimento", "Estamos trabalhando nesta funcionalidade para disponibilizá-la em breve.", 6000, true)
+            handleOpenModalUploadImage(data)
             return
         }
 
@@ -334,6 +398,7 @@
             ...raw,
             value_transaction: Number(raw.value_transaction ?? 0),
             date_transaction: dateFormated,
+            url_recibo: urlImage.value
         }
 
         if (option.value === "delete" && (data.type_transaction === "despesa" || data.type_transaction === "receita") && (data.type_recurrence === "fixa" || data.type_recurrence === "parcelada")) {
@@ -431,6 +496,13 @@
             color-button="green"
             @apply-filter="handleApplyFilter"
             @reset-filter="handleClearFilter"
+        />
+
+        <BaseUploadFile 
+            :model-value="modelUploadImage"
+            :loading="false"
+            @close-modal="closeModalUploadImage"
+            @submit-image="handleSubmitImageUpload"
         />
 
         <v-row
@@ -688,6 +760,45 @@
                             {{ `(${item.installment_current} / ${item.total_installments})` }}
                         </span>
                     </span>
+                    <span v-if="item.url_recibo">
+                        <v-btn @click="openShowRecibo(item.url_recibo!)" v-tooltip="'Recibo'" variant="text" icon="mdi-receipt-text-check" color="primary"></v-btn>
+                            <v-dialog max-width="500" v-model="showImageRecibo">
+                                <template v-slot:default="{ isActive }">
+                                    <v-card rounded="lg" class="pa-2">
+                                        
+                                        <div class="d-flex align-center justify-center position-relative pa-4">
+                                            <span class="text-h6 font-weight-medium">Visualizar anexo</span>
+
+                                            <v-btn
+                                                icon="mdi-close"
+                                                variant="text"
+                                                density="comfortable"
+                                                class="position-absolute"
+                                                style="top: 8px; right: 8px;"
+                                                @click="isActive.value = false"
+                                            />
+                                        </div>
+
+                                        <v-card-text>
+                                            <v-img
+                                                :lazy-src="currentReciboUrl!"
+                                                max-height="600"
+                                                contain
+                                                :src="currentReciboUrl!"
+                                                rounded="lg"
+                                            >
+                                                <template v-slot:placeholder>
+                                                    <div class="d-flex align-center justify-center fill-height">
+                                                        <v-progress-circular indeterminate />
+                                                    </div>
+                                                </template>
+                                            </v-img>
+                                        </v-card-text>
+
+                                    </v-card>
+                                </template>
+                            </v-dialog>
+                    </span>
                 </template>
 
                 <template #item.date_transaction="{ item }">
@@ -725,6 +836,38 @@
                 </template>
             </v-data-table>
         </v-card>
+            <BaseModal
+            :persistent-modal="true"
+            :model-value="modalHelp"
+            title="Recomendações"
+            @close-modal="closeModalHelpInvoice"
+        >
+            <div class="pa-4">
+                <p>
+                    O pagamento da fatura gera automaticamente um
+                    <strong>lançamento em Transações</strong>.
+                </p>
+
+                <p>
+                    Caso algum lançamento desta fatura esteja incorreto,
+                    acesse a tela de <strong>Cartões de crédito</strong>,
+                    <strong>reabra a fatura</strong> e realize os ajustes necessários
+                    nos lançamentos. Após concluir, <strong>feche a fatura novamente</strong>.
+                </p>
+
+                <p>
+                    <strong>Importante:</strong> alterações nos lançamentos da fatura devem ser
+                    realizadas na tela de <strong>Cartões de crédito</strong>, e não neste
+                    lançamento de pagamento.
+                </p>
+
+                <p class="mb-0">
+                    Esse processo mantém um <strong>padrão de registro e rastreabilidade</strong>,
+                    preservando a <strong>integridade do histórico financeiro</strong> e facilitando
+                    futuras <strong>auditorias e conferências</strong>.
+                </p>
+            </div>
+        </BaseModal>
     </v-container>
 </template>
 
