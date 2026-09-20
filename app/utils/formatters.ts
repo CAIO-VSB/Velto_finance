@@ -1,6 +1,7 @@
     import type { TTransfer } from '~~/types/transfer/TTransfer'
     import type { TMovements } from '~~/types/movements/TMovements'
     import type { TMovementCreditCard } from '~~/types/credit_card/TMovementCreditCard'
+    import type { TGoalsMovements } from '~~/types/goals/TMovementsGoals'
 
     export function parseTransferToEdit(transfer: TTransfer):TTransfer {
 
@@ -27,5 +28,13 @@
             ...movement,
             value_transaction: Number(movement.value_transaction ?? 0),
             purchase_date: parseDateOnlyToLocalDate(String(movement.purchase_date))
+        }
+    }
+
+    export function parseMovementGoalsToEdit(goals: TGoalsMovements): TGoalsMovements {
+        return {
+            ...goals,
+            value_paid: Number(goals.value_paid ?? 0),
+            date_movement: parseDateOnlyToLocalDate(String(goals.date_movement))
         }
     }

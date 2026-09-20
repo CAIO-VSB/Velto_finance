@@ -5,7 +5,8 @@ export type TGoalsMovements = {
   value_paid: number
   date_movement: Date
   accounts_id: number | null
-  active?: boolean | null
+  active?: boolean | null,
+  is_ignored?: boolean | null
 }
 
 export type TgoalsMovementsSumary = {
@@ -16,6 +17,7 @@ export type TgoalsMovementsSumary = {
   date_movement: string
   accounts_id: number | null
   active?: boolean | null
+  is_ignored?: boolean | null
 
   id_goals: number | null
   name_identifier: string | null

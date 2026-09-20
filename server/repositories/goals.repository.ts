@@ -188,9 +188,9 @@ export const goalsRepository = {
             await conn.query('BEGIN')
 
             await conn.query(`
-                INSERT INTO goals_movements(goals_id, description, value_paid, date_movement, accounts_id) 
-                VALUES($1, $2, $3, $4, $5) 
-                RETURNING id`,[data.goals_id, data.description, data.value_paid, data.date_movement, data.accounts_id]
+                INSERT INTO goals_movements(goals_id, description, value_paid, date_movement, accounts_id, is_ignored) 
+                VALUES($1, $2, $3, $4, $5, $6) 
+                RETURNING id`,[data.goals_id, data.description, data.value_paid, data.date_movement, data.accounts_id, data.is_ignored]
             )
 
             await conn.query('COMMIT')

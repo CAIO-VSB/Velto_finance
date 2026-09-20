@@ -117,6 +117,13 @@
             mobile-breakpoint="md"
             items-per-page="10"
         >
+            <template #item.description="{ item }">
+                <div class="d-flex align-center ga-2">
+                    <span>{{ item.description }}</span>
+                    <span v-if="item.is_ignored"><v-chip color="orange">Ignorada</v-chip></span>
+                </div>
+            </template>
+
             <template #item.value_paid="{ item }">
                 <div >
                     <span><v-chip color="primary">{{ formatCurrency(item.value_paid) }}</v-chip></span>

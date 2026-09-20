@@ -22,20 +22,22 @@
   const { invalidate } = useInvalidate()
   const { notifyError, notifyInfo, notifySuccess } = useNotify()
   
+  const menuAccounts = ref(false)
+  const modelAccounts = ref<number | null>(null)
+  const menuGoals = ref(false)
+  const modelGoals = ref<number | null>(null)
+  const changeIgnoredTransaction = ref(false)
+  const formRef = ref()
+
   const movementGoalsForm = ref<TGoalsMovements>({
     goals_id: null,
     description: "",
     value_paid: 0.00,
     date_movement: new Date(),
     accounts_id: null,
-    active: false
+    active: false,
+    is_ignored: changeIgnoredTransaction.value
   })
-
-  const menuAccounts = ref(false)
-  const modelAccounts = ref<number | null>(null)
-  const menuGoals = ref(false)
-  const modelGoals = ref<number | null>(null)
-  const formRef = ref()
 
   const { data:accounts, isPending: isPendingAccounts } = useQuery({
     queryKey: QUERY_KEYS.accounts.active,
@@ -93,10 +95,13 @@
           ...movementGoalsForm.value,
           accounts_id: modelAccounts.value,
           goals_id: modelGoals.value,
-          date_movement: dateMovementFormated
+          date_movement: dateMovementFormated,
+          is_ignored: changeIgnoredTransaction.value
         }
 
         const resultSchema =  validateSchemaGoalsMovements(payload)
+
+        console.log("Valor sendo enviado " + JSON.stringify(payload))
 
         if (!resultSchema.success) {
           notifyInfo(
@@ -169,7 +174,6 @@
                 <v-date-input prepend-inner-icon="mdi-calendar" prepend-icon="" :rules="dateRules" autocomplete="off" label="Data do lançamento" variant="solo-filled" v-model="movementGoalsForm.date_movement"></v-date-input>
               </v-col>
 
-              
             <v-col
             cols="12" md="12" sm="12"
             >
@@ -248,8 +252,18 @@
                 </v-select>
                 </v-col>
             </v-row>
-
           </v-card-text>
+
+          <div class="pl-7 d-flex ga-5">
+            <v-switch size="small"color="primary" :true-value="true" :label="`Switch: ${changeIgnoredTransaction}`" :false-value="false" v-model="changeIgnoredTransaction" label="Ignorar transação" inset="material"></v-switch>
+            <div class="mt-2"> 
+              <v-tooltip text="Ao marcar esta opção, nenhum débito será gerado em conta bancária. O lançamento servirá apenas para controle do seu progresso na meta." class="pt-3">
+                <template v-slot:activator="{ props }">
+                  <v-btn v-bind="props" variant="plain" icon="mdi-tooltip-question"></v-btn>
+                </template>
+              </v-tooltip>
+            </div>
+          </div>
 
           <v-divider></v-divider>
 
