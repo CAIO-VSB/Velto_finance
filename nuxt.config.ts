@@ -131,7 +131,7 @@ export default defineNuxtConfig({
   // Mapeia a variável de ambiente DATABASE_URL que o Docker vai injetar
     databaseUrl: process.env.DATABASE_URL,
     public: {
-      cloudinaryCloudName: process.env.CLOUDINARY_CLOUD_NAME,
+      cloudinaryCloudName: '',
       cloudinaryUploadPreset: 'ml_default'
     }
   },

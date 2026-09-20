@@ -82,9 +82,7 @@
     async function onFileChange() {
 
       try {
-    
-        console.log("Arquivos endo enviaod " + JSON.stringify(modelImage.value))
-
+  
         if (!modelImage.value.length) {
           notifyInfo(
             "Atenção",
