@@ -209,10 +209,8 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
                     :value="balanceCurrent.saldo_atual"
                     color="primary"
                     icon="mdi-bank"
-                    text-tool-tip="Saldo atual: considera o saldo inicial das contas ativas e todas as movimentações efetivadas, independentemente do período."
-                    icon-tool-tip="mdi-information-outline"
-                    size-icon-tool-tip="20px"
                     :loading="isPendingSumary"
+                    v-tooltip="'Total de dinheiro que entrou no período selecionado.'"
                 />
             </div>
 
@@ -223,9 +221,7 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
                     :value="summary.receitas"
                     color="success"
                     icon="mdi-arrow-down-thin-circle-outline"
-                    text-tool-tip="Valor total de suas receitas cadastradas, sejam elas recebidas ou pendentes"
-                    icon-tool-tip="mdi-information-outline"
-                    size-icon-tool-tip="20px"
+                    v-tooltip="'Total de dinheiro que entrou no período selecionado.'"
                     :loading="isPendingSumary"
                 />
             </div>
@@ -237,9 +233,7 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
                     :value="summary.despesas"
                     color="error"
                     icon="mdi-arrow-up-thin-circle-outline"
-                    text-tool-tip="Valor total de suas despesas cadastradas, pagas ou pendentes"
-                    icon-tool-tip="mdi-information-outline"
-                    size-icon-tool-tip="20px"
+                    v-tooltip="'Total de dinheiro que saiu no período selecionado.'"
                     :loading="isPendingSumary"
                 />
             </div>
@@ -251,9 +245,7 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
                     :value="balanceByCards.total_cartoes"
                     color="primary"
                     icon="mdi-credit-card"
-                    text-tool-tip="Valor total de suas faturas pagas ou a vencer no mês atual"
-                    icon-tool-tip="mdi-information-outline"
-                    size-icon-tool-tip="20px"
+                    v-tooltip="'Total das faturas dos seus cartões de crédito no mês atual, incluindo as já pagas e as que ainda estão em aberto.'"
                     :loading="isPendingByCards"
                 />
             </div>
@@ -315,6 +307,9 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
                         <thead>
                             <tr>
                                 <th class="text-left font-weight-bold">
+                                Tipo
+                                </th>
+                                <th class="text-left font-weight-bold">
                                 Data
                                 </th>
                                 <th class="text-left font-weight-bold">
@@ -333,8 +328,19 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
                                 v-for="item in allLastMovements"
                                 :key="item.id"
                             >
+                                <td class="text-capitalize">{{item.type_recurrence|| "avulsa" }}</td>
+
                                 <td>{{ formatDate(item.date_transaction) }}</td>
-                                <td>{{ item.description_transaction }}</td>
+
+                                <td>
+                                    <span>{{ item.description_transaction }}
+
+                                    <span v-if="item.total_installments">
+                                        {{ `(${item.installment_current} / ${item.total_installments})` }}
+                                    </span>
+
+                                </span>
+                                </td>
                                 <td><v-chip :color="(item.type_transaction === 'receita') ? 'success' : 'red'">{{ formatCurrency(item.value_transaction)}}</v-chip></td>
                                 <td>{{ item.name_accounts }}</td>
                             </tr>

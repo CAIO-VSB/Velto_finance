@@ -122,7 +122,17 @@
     <CardEditEconomy :draft="editDraft" v-model="modelEditEconomy"/>
     <CardAddMovementSGoals v-model="modelAddMovement" />
 
-    <v-container class="economy-empty-state d-flex align-center justify-center mt-4" v-if="!isPending && !data?.length">
+    <v-container class="economy-empty-state d-flex align-center justify-center mt-4" v-if="!isPendingGoals && !data?.length">
+       <v-overlay
+        :model-value="isPendingGoals"
+        class="align-center justify-center"
+      >
+        <v-progress-circular
+          color="primary"
+          size="64"
+          indeterminate
+        ></v-progress-circular>
+      </v-overlay>
       <v-card
         v-if="!isPending && !data?.length"
         class="overflow-hidden"

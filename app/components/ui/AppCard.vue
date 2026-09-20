@@ -20,6 +20,7 @@
         rounded="xl"
         elevation="2"
         :loading="propsCards.loading"
+        :v-tooltip="textToolTip"
     >
         <v-card-text class="pa-5">
             <div class="d-flex align-center justify-space-between ga-4">

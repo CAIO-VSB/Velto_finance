@@ -32,6 +32,7 @@
     import useOptions from '~/pages/transactions/composable/useOptions'
     import { useHttpCreditsCards } from "~/composables/useHttp/useHttpCreditCard"
     import BaseModal from "~/components/ui/BaseModal.vue"
+    import BaseUploadFile from '~/components/ui/BaseUploadFile.vue'
 
     const { getMoviments, patchMovementsById, getCurrentBalance, getMovimentsByFilter } = useHttpMovements()
     const { allMovementsCreditCard } = useHttpMovementCreditCard()
@@ -54,9 +55,14 @@
     const modalEditTransfer = ref(false)
     const cardDeletTransaction = ref(false)
     const cardDeleteTransfer = ref(false)
+    const modelUploadImage = ref(false)
+    const urlImage = ref("")
+    const showImageRecibo = ref(false)
+    const currentReciboUrl = ref<string | null>(null)
     const isFiltered = ref(false)
     const lastFilter = ref<TMovementsByFilter | null>(null)
     const filteredData = ref<TMovementsSummary[] | null>(null)
+    const movementBeingAttached = ref<TMovementsSummary | null>(null)
     const labelOptions = ref({
         colorButton: "",
         textButton: "",
@@ -84,6 +90,10 @@
     const { data, isPending, refetch } = useQuery({
         queryKey: QUERY_KEYS.movements.all,
         queryFn: () => getMoviments(period.value.month, period.value.year)
+    })
+
+    watch(() => data.value, (val) => {
+        console.log("Valores aqui " + JSON.stringify(val?.filter(item => item.url_recibo)))
     })
 
     const { data:currentBalance, isPending:isPendingCurrentBalance } = useQuery({
@@ -295,7 +305,54 @@
         editDraft.value = parseMovementToEdit(rawMovements)
         modelEditRecurrenceRevenue.value = true
     }
-    
+
+    function handleOpenModalUploadImage(movement: TMovementsSummary) {
+        modelUploadImage.value = true
+        movementBeingAttached.value = movement
+    }
+
+    function handleSubmitImageUpload(url: string) {
+
+        if (!movementBeingAttached.value) {
+            notifyError("Erro", "Não foi possível identificar a transação.", 7000)
+            return
+        }
+        
+        const raw = structuredClone(toRaw(movementBeingAttached.value))
+
+        if (!raw.date_transaction) {
+            notifyError(
+                "Data inválida",
+                "Não foi possível concluir a ação porque a data informada é inválida ou está ausente.",
+            )
+            return
+        }
+
+        const dateFormated = dateToDateOnly(raw.date_transaction)
+
+        const payload = {
+            ...raw,
+            value_transaction: Number(raw.value_transaction ?? 0),
+            date_transaction: dateFormated,
+            url_recibo: url
+        }
+        
+        mutate(payload)
+
+        movementBeingAttached.value = null
+        modelUploadImage.value = false
+        currentReciboUrl.value = null
+    }
+
+    function closeModalUploadImage() {
+        modelUploadImage.value = false
+    }
+
+    function openShowRecibo(url: string) {
+        currentReciboUrl.value = url
+        showImageRecibo.value = true
+    }
+
     async function handleOpenModalEditTransfer(transfer: TMovementsWithTransfer) {
 
         if (!transfer.transfer_id) {
@@ -326,7 +383,7 @@
         }
 
         const optionsMap: Record<string, () => void> = {
-            "arquivo": () => notifyInfo("Em desenvolvimento", "Estamos trabalhando nesta funcionalidade para disponibilizá-la em breve.", 6000, true),
+            "arquivo": () => handleOpenModalUploadImage(data),
             "edit_receita": () =>  handleOpenModalEditMovementsRevenue(data),
             "edit_despesa": () => handleOpenModalEditMovementsExpense(data),
             "edit_transferencia_entrada": () =>  handleOpenModalEditTransfer(data),
@@ -357,7 +414,8 @@
         const payload = {
             ...raw,
             value_transaction: Number(raw.value_transaction ?? 0),
-            date_transaction: dateFormated
+            date_transaction: dateFormated,
+            url_recibo: urlImage.value
         }
 
         if (option.value === "delete" && (data.type_transaction === "despesa" || data.type_transaction === "receita") && (data.type_recurrence === "fixa" || data.type_recurrence === "parcelada")) {
@@ -405,7 +463,7 @@
 <template>
     <v-container
         fluid
-        class="mt-6 pa-4 pa-md-6 container"
+        class="mt-5 pa-4 pa-md-6 container"
     >
         <CardDeleteMovementTransfer
             v-model="cardDeleteTransfer"
@@ -416,6 +474,7 @@
             :color-botton="labelOptions.colorButton"
             @success="handleMutationSuccess"
         />
+
 
         <CardDeletTransaction
             v-model="cardDeletTransaction"
@@ -480,6 +539,13 @@
             @reset-filter="handleClearFilter"
         />
 
+        <BaseUploadFile 
+            :model-value="modelUploadImage"
+            :loading="false"
+            @close-modal="closeModalUploadImage"
+            @submit-image="handleSubmitImageUpload"
+        />
+        
         <div class="d-flex align-center mb-6">
             <ListToolBar @show-drawer="showDrawer" />
         </div>
@@ -499,6 +565,7 @@
                 :value="balanceCurrent.saldo_atual"
                 color="primary"
                 icon="mdi-bank"
+                v-tooltip="'Valor disponível atualmente, considerando as movimentações financeiras já registradas.'"
                 />
             </v-col>
 
@@ -514,6 +581,7 @@
                     :value="summary.receitas"
                     color="success"
                     icon="mdi-arrow-down-thin-circle-outline"
+                    v-tooltip="'Total de entradas financeiras registradas no período selecionado.'"
                 />
             </v-col>
 
@@ -529,6 +597,7 @@
                     :value="summary.despesas"
                     color="error"
                     icon="mdi-arrow-up-thin-circle-outline"
+                    v-tooltip="'Total de saídas financeiras registradas no período selecionado.'"
                 />
             </v-col>
 
@@ -544,6 +613,7 @@
                     :value="summary.balancoMensal"
                     color="primary"
                     icon="mdi-scale-balance"
+                    v-tooltip="'Resultado do período: receitas menos despesas. Valores positivos indicam saldo favorável; negativos indicam déficit.'"
                 />
             </v-col>
             </div>
@@ -677,6 +747,45 @@
                         <span v-if="item.type_transaction === 'pagamento_fatura'">
                             {{ `- ${item.credit_card_name}` }}
                         </span>
+                    </span>
+                    <span v-if="item.url_recibo">
+                        <v-btn @click="openShowRecibo(item.url_recibo!)" v-tooltip="'Recibo'" variant="text" icon="mdi-image-area"></v-btn>
+                            <v-dialog max-width="500" v-model="showImageRecibo">
+                                <template v-slot:default="{ isActive }">
+                                    <v-card rounded="lg" class="pa-2">
+                                        
+                                        <div class="d-flex align-center justify-center position-relative pa-4">
+                                            <span class="text-h6 font-weight-medium">Visualizar anexo</span>
+
+                                            <v-btn
+                                                icon="mdi-close"
+                                                variant="text"
+                                                density="comfortable"
+                                                class="position-absolute"
+                                                style="top: 8px; right: 8px;"
+                                                @click="isActive.value = false"
+                                            />
+                                        </div>
+
+                                        <v-card-text>
+                                            <v-img
+                                                :lazy-src="currentReciboUrl!"
+                                                max-height="600"
+                                                contain
+                                                :src="currentReciboUrl!"
+                                                rounded="lg"
+                                            >
+                                                <template v-slot:placeholder>
+                                                    <div class="d-flex align-center justify-center fill-height">
+                                                        <v-progress-circular indeterminate />
+                                                    </div>
+                                                </template>
+                                            </v-img>
+                                        </v-card-text>
+
+                                    </v-card>
+                                </template>
+                            </v-dialog>
                     </span>
                 </template>
 

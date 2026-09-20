@@ -106,10 +106,9 @@ import type { TCreditCard } from '~~/types/credit_card/TCredit-card';
     }
 
     if (option.value === 'edit' && (data.type_recurrence === 'fixa' || data.type_recurrence === 'parcelada')) {
-      console.log("Caiu aqui ?")
       modalEditRecurrence.value = true
       const rawMovement = structuredClone(toRaw(data))
-      editDraft.value = rawMovement
+      editDraft.value = parseMovementCreditCardToEdit(rawMovement)
       return
     }
 
@@ -122,14 +121,14 @@ import type { TCreditCard } from '~~/types/credit_card/TCredit-card';
     if (option.value === 'estornar') {
       modalAddReversal.value = true
       const rawMovement = structuredClone(toRaw(data))
-      editDraft.value = rawMovement
+      editDraft.value = parseMovementCreditCardToEdit(rawMovement)
       return
     }
 
     if (option.value === 'edit') {
       modalEditMovement.value = true
       const rawMovement = structuredClone(toRaw(data))
-      editDraft.value = rawMovement
+      editDraft.value = parseMovementCreditCardToEdit(rawMovement)
       return
     }
 

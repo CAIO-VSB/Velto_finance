@@ -5,8 +5,6 @@ export function useOnFileChange() {
 
     const submitImage = async (files: File[]) => {
 
-        console.log("Chegou aqui ??" + JSON.stringify(files))
-
         const file = files[0]
 
         if (!file) {
@@ -38,7 +36,7 @@ export function useOnFileChange() {
                 return
             }
 
-            notifySuccess("Sucesso", "Foto atualizada com sucesso", 5000)
+            notifySuccess("Sucesso", "Operação realizada com sucesso", 5000)
 
 
             return data.secure_url

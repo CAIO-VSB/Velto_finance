@@ -26,7 +26,6 @@
         value: string | boolean
     }
 
-    const sharedPercentage = useState('sharedPercentage', () => 0)
     const route = useRoute()
     const menu = ref(false)
     const modelAddMovement = ref(false)

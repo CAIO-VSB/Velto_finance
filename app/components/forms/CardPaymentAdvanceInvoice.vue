@@ -157,7 +157,7 @@
       return
     }     
 
-    if (form.value.totalPaid <= 0 || form.value.totalPaid === null) {
+    if (form.value.totalPaid! <= 0 || form.value.totalPaid === null) {
       notifyInfo(
         'Valor inválido',
         'Informe um valor maior que R$ 0,00 para realizar o pagamento parcial.',

@@ -54,7 +54,7 @@
             ...data,
             start_date: new Date(data.start_date ?? new Date()),
             end_data: new Date(data.end_date ?? new Date()),
-            date_movement: new Date(data.date_movement)
+            date_movement: parseDateOnlyToLocalDate(data.date_movement)
         }
 
         if (option.value === 'edit') {

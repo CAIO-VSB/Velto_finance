@@ -73,7 +73,7 @@
       return
     }
 
-    const dateMovementFormated = dateToDateOnly(props.draft?.date_movement ?? new Date())
+    const dateMovementFormated = dateToDateOnly(props.draft?.date_movement!)
 
       try {
 
