@@ -7,7 +7,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 		return
 	}
 
-	if (publicRoutes.includes(to.path)) {
+	if (publicRoutes.includes(to.path) || to.path.includes('callback')) {
 		return
 	}
 
