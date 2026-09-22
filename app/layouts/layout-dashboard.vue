@@ -196,7 +196,7 @@
             <v-spacer />
 
             <span class="text-caption">
-              v1.0.4
+              v1.0.6
             </span>
           </div>
 
