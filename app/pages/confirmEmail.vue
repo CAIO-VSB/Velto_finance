@@ -66,8 +66,8 @@
   min-height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
   padding: 24px;
+  overflow: auto;
 }
 
 .confirmation-card {

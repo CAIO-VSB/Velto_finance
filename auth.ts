@@ -22,13 +22,13 @@ export const auth = betterAuth({
         autoSignIn: false,
         
         sendResetPassword: async ({user, url}) => {
-            await sendForgotPassword(user, url)
+            void sendForgotPassword(user, url)
         }
     },
 
     emailVerification: {
         sendVerificationEmail: async ({ user, url }) => {
-           await sendUserEmail(user, url)
+           void sendUserEmail(user, url)
         },
         sendOnSignIn: true,
         sendOnSignUp: true
@@ -38,7 +38,7 @@ export const auth = betterAuth({
         changeEmail: {
             enabled: true,
             sendChangeEmailConfirmation: async ({user, newEmail, url}) => {
-                await sendChangeEmail({email: user.email, newEmail}, url)
+                void sendChangeEmail({email: user.email, newEmail}, url)
             },
         },
     },

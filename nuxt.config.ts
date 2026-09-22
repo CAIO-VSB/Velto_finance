@@ -46,6 +46,7 @@ export default defineNuxtConfig({
     features: ['LabelLayout', 'UniversalTransition']
   },
 
+
   nuxtApiShield: {
 
     limit: {
@@ -114,6 +115,7 @@ export default defineNuxtConfig({
       { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/genfavicon-32.png' },
       { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/genfavicon-16.png' },
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon-180x180.png' },
+      {rel: 'manifest', href: '/manifest.webmanifest'}
     ]
     },
   },

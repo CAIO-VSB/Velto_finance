@@ -214,8 +214,7 @@
             class="mb-6"
         >
             <v-col
-                cols="12"
-                md="auto"
+                class="main-btn-option"
             >
                 <v-menu
                     transition="scale-transition"
@@ -228,7 +227,7 @@
                             variant="tonal"
                             append-icon="mdi-chevron-down"
                             rounded="lg"
-                            class="text-none font-weight-medium"
+                            class="text-none font-weight-medium"  
                         >
                             {{ titleButtonOption }}
                         </v-btn>
@@ -269,16 +268,14 @@
             </v-col>
 
             <v-col
-                cols="12"
-                md
-                class="d-flex justify-md-end"
+            class="d-flex justify-md-end ga-3"
             >
                 <v-btn
                     :color="ColorButtonOption"
                     prepend-icon="mdi-plus"
                     variant="flat"
                     rounded="lg"
-                    class="text-none font-weight-bold"
+                    class="text-none font-weight-bold btn-add-transfer"
                     @click="modalAddTransfer = true"
                 >
                     Nova transferência
@@ -467,6 +464,7 @@
 </template>
 
 <style scoped>
+
 .main-cards {
     width: 100%;
     margin: 10px;
@@ -484,6 +482,21 @@
         display: grid;
         grid-template-columns: 1fr;
         padding: 0 6px 0 6px;
+    }
+
+}
+
+@media (max-width: 690px) {
+
+    .main-btn-option {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+    }
+
+
+    .btn-add-transfer {
+        width: 100%;
     }
 
 }

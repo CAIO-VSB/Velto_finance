@@ -1,5 +1,6 @@
 import type  { EChartsOption as ECOption  } from "echarts"
 import { useChartTheme } from "./useChartTheme"
+import type { CallbackDataParams } from "echarts/types/dist/shared"
 
 export type BarDatum = {
     name: string | number,
@@ -14,7 +15,7 @@ export function useBarChart(data: MaybeRefOrGetter<BarDatum[]>) {
 
         return {
             color: colors,
-            tooltip: {trigger: 'axis'},
+            tooltip: {trigger: 'axis', valueFormatter: (value) => formatCurrency(Number(value))},
             grid: {left: 0, right: 50, top: 30 },
             dataset: {
                 source: toValue(data)
@@ -25,12 +26,16 @@ export function useBarChart(data: MaybeRefOrGetter<BarDatum[]>) {
             yAxis: {type: 'value'},
             series: [
                 {
-                    name: 'total',
-                    stack: 'total',
+                    name: 'Total',
+                    stack: 'Total',
                     type: 'bar',
                     label: {
                         show: true,
-                        position: 'inside'
+                        position: 'inside',
+                        formatter: (params: CallbackDataParams) => {
+                            const value = (params.value as {value: number}).value
+                            return formatCurrency(value)
+                        }
                     },
                     barMaxWidth: 48,
                     itemStyle: { 
