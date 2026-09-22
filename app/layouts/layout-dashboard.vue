@@ -2,7 +2,7 @@
 
   import logo from "~~/app/assets/logo-side-bar.svg"
 
-  import ButtonActions from './components/ButtonActions.vue'
+  import ButtonActions from '~/layouts/components/buttonActions.vue'
   import TopBar from "~/layouts/components/TopBar.vue"
 
   const drawer = ref(true)

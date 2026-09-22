@@ -2,6 +2,13 @@
 
 Todas as mudanças notáveis deste projeto serão documentadas aqui.
 
+## [1.0.8] - 2026-09-22
+### Corrigido
+- Aplica um correção que aumenta o timeout de requisições do app de 10ms para 20ms
+
+## [1.0.7] - 2026-09-22
+### Corrigido
+- Corrigi erros de sintaxe no middleware global da aplicação
 
 ## [1.0.6] - 2026-09-21
 ### Adicionado
@@ -30,3 +37,7 @@ Todas as mudanças notáveis deste projeto serão documentadas aqui.
 ### Adicionado
 - Upload de recibo/anexo em transações via Cloudinary
 - Opção "não debitar de conta bancária" em aplicações de metas
+
+## [1.0.1] - 2026-09-01
+### Adicionado
+- Mudanças no visual da telas de categorias
