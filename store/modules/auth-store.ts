@@ -95,7 +95,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     const loginGoogle = async () => {
 
-        const data = await $authClient.signIn.social({
+        $authClient.signIn.social({
             provider: "google",
             callbackURL: "https://app.veltofinance.bid/dashboard"
         }, {
@@ -112,13 +112,11 @@ export const useAuthStore = defineStore('auth', () => {
             },
         })
 
-        return data
-
     }
 
     const loginDiscord = async () => {
 
-        const data = await $authClient.signIn.social({
+        $authClient.signIn.social({
             provider: "discord",
             callbackURL: "https://app.veltofinance.bid/dashboard"
         }, {
@@ -135,7 +133,6 @@ export const useAuthStore = defineStore('auth', () => {
             },   
         })
 
-        return data
     }
 
     const register = async (data: TRegisterForm) => {

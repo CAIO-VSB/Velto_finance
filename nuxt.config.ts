@@ -76,6 +76,7 @@ export default defineNuxtConfig({
 
   
   nitro: {
+    trustProxy: true,
     "storage": {
       "shield": {
         "driver": "memory"

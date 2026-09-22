@@ -67,8 +67,6 @@
       "Ocorreu um erro interno ao tentar acessar sua conta. Tente novamente em alguns instantes.",
       7000
     )
-    } finally {
-      loadingGoogle.value = true;
     }
   }
 
@@ -84,9 +82,7 @@
       "Ocorreu um erro interno ao tentar acessar sua conta. Tente novamente em alguns instantes.",
       7000
     )
-    } finally {
-      loadingDiscord.value = false
-    }
+    } 
   }
 
 </script>
