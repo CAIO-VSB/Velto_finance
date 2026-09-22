@@ -17,11 +17,13 @@
     import { useLineChart } from "~/composables/useVueCharts/useLineChart"
     import { useBarChart, type BarDatum } from "~/composables/useVueCharts/useBarChart"
     import type { TPeriod } from '~~/types/period/TPeriod';
-import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
+    import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
+    import { useDisplay } from "vuetify/lib/composables/display.mjs";
 
     const { getExpenseByCategorie, getRenevueByCategorie, getAllSumary, getTotalByCards, getLastMovements, getExpensesByThreeMonths, getBalanceEvolution } = useHttpDashboard()
     const { getCurrentBalance, getMoviments } = useHttpMovements()
     const { getAllAccounts } = useHttpAccounts()
+    const { mdAndUp, smAndUp } = useDisplay()
 
     const period = ref({
         month: new Date().getMonth(),
@@ -78,6 +80,12 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
     const { data: allBalanceEvolution, isPending: isPendingBalanceEvolution, refetch: refetchBalanceEvolution } = useQuery({
         queryKey: QUERY_KEYS.dashboard.balanceEvolution,
         queryFn: () => getBalanceEvolution(period.value.month, period.value.year)
+    })
+
+    const iconSize = computed(() => {
+        if (mdAndUp.value) return 80
+        if (smAndUp.value) return 70
+        return 60
     })
 
 
@@ -179,8 +187,8 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
         { name: 'Despesas', value: summary.value.despesas, color: '#FF6B6B' },
     ])
 
-    const { option: expenseOption } = useDonutChart(computed(() => expenseByCategorie.value ?? []), ['62%', '50%'] )
-    const { option: renevueOption } = useDonutChart(computed(() => renevueByCategorie.value ?? []), ['55%', '50%'])
+    const { option: expenseOption } = useDonutChart(computed(() => expenseByCategorie.value ?? []))
+    const { option: renevueOption } = useDonutChart(computed(() => renevueByCategorie.value ?? []))
     const { option: balancoOption } = useBarChart(barData)
     const { option: balanceExpenseThreeMonths } = useBarChart(computed(() => allExpenseThreeMonths.value ?? []))
     const { option: balanceEvolution } = useLineChart(computed(() => allBalanceEvolution.value ?? []))
@@ -257,10 +265,16 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
                     <v-empty-state
                         icon="mdi-calendar-check-outline"
                         color="primary"
-                        title="Opa! Você não possui pendências no momento."
+                        :size="iconSize"
                     >
+                        <template #title>
+                            <span class="empty-state-title font-weight-bold">
+                                Opa! Você não possui pendências no momento.
+                            </span>
+                        </template>
+
                         <template #text>
-                            <span>
+                            <span class="empty-state-subtitle">
                                 Suas contas e movimentações estão em dia.
                             </span>
                         </template>
@@ -294,10 +308,14 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
                     v-if="!allLastMovements?.length"
                     icon="mdi-history"
                     color="primary"
-                    title="Opa! Você ainda não possui lançamentos este mês."
+                    :size="iconSize"
                 >
+                    <template #title>
+                        <span class="empty-state-title font-weight-bold">Opa! Você ainda não possui lançamentos este mês.</span>
+                    </template>
+
                     <template #text>
-                        <span>
+                        <span class="empty-state-subtitle"> 
                             Adicione uma receita ou despesa para visualizar seus últimos lançamentos.
                         </span>
                     </template>
@@ -351,14 +369,17 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
             </BaseCard>
 
             <BaseCard :loading="isPendingByCategorieRenevue" title="Frequência de gastos" subtitle="Identifique os períodos com mais gastos" >
-                <div class="d-flex align-center justify-center"  v-if="!onlyExpenseActive?.length" style="height: 510px;">
+                <div class="d-flex align-center justify-center"  v-if="!onlyExpenseActive?.length" >
                     <v-empty-state
                         icon="mdi-chart-timeline-variant"
                         color="green"
-                        title="Ainda não há dados de gastos"
+                        :size="iconSize"
                         >
+                        <template #title>
+                            <span class="empty-state-title font-weight-bold">Ainda não há dados de gastos</span>
+                        </template>
                         <template #text>
-                            <span>Registre suas despesas para identificar seus hábitos de consumo.</span>
+                            <span class="empty-state-subtitle">Registre suas despesas para identificar seus hábitos de consumo.</span>
                         </template>
                     </v-empty-state>
                 </div>
@@ -367,14 +388,17 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
                 </div>
             </BaseCard>
             <BaseCard :loading="isPendingByCategorieRenevue" title="Evolução do saldo" subtitle="Veja como seu saldo evolui ao longo do tempo">
-                <div class="d-flex align-center justify-center"  v-if="!allMovements?.length" style="height: 510px;">
+                <div class="d-flex align-center justify-center"  v-if="!allMovements?.length" >
                     <v-empty-state
                         icon="mdi-chart-line"
                         color="green"
-                        title="Sua evolução começa aqui"
+                        :size="iconSize"
                         >
+                        <template #title>
+                            <span class="empty-state-title font-weight-bold">Sua evolução começa aqui</span>
+                        </template>
                         <template #text>
-                            <span>Adicione movimentações para acompanhar a evolução do seu saldo ao longo do tempo.</span>
+                            <span class="empty-state-subtitle">Adicione movimentações para acompanhar a evolução do seu saldo ao longo do tempo.</span>
                         </template>
                     </v-empty-state>
                 </div>
@@ -384,19 +408,23 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
             </BaseCard>
 
             <BaseCard :loading="isPendingExpenseByCategorie" title="Despesas por categoria" subtitle="Visualize onde seus gastos estão concentrados">
-                <div class="d-flex align-center justify-center"  v-if="!allMovements?.length" style="height: 510px;">
+                <div class="d-flex align-center justify-center"  v-if="!allMovements?.length" >
                     <v-empty-state
                         icon="mdi-chart-donut"
                         color="error"
                         title="Nenhuma despesa registrada"
+                        :size="iconSize"
                         >
+                        <template #title>
+                            <span class="empty-state-title font-weight-bold">Nenhuma despesa registrada</span>
+                        </template>
                         <template #text>
-                            <span>Registre suas despesas para visualizar onde seu dinheiro está sendo gasto.</span>
+                            <span class="empty-state-subtitle">Registre suas despesas para visualizar onde seu dinheiro está sendo gasto.</span>
                         </template>
                     </v-empty-state>
                 </div>
                 <div class="pa-4" v-else>
-                    <VChart class="mt-5" :option="expenseOption" autoresize style="height: 430px"/>
+                    <VChart class="mt-2" :option="expenseOption" autoresize style="height: 430px;"/>
                     <div class="d-flex justify-end pa-1">
                         <v-sheet :width="220" :height="25" class="rounded-lg px-3" border>
                             <span class="text-medium-emphasis">
@@ -410,15 +438,19 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
                 </div>
             </BaseCard>
 
-                        <BaseCard :loading="isPendingByCategorieRenevue" title="Receitas por categoria" subtitle="Visualize a origem das suas receitas">
-                <div class="d-flex align-center justify-center"  v-if="!allMovements?.length" style="height: 510px;">
+            <BaseCard :loading="isPendingByCategorieRenevue" title="Receitas por categoria" subtitle="Visualize a origem das suas receitas">
+                <div class="d-flex align-center justify-center"  v-if="!allMovements?.length" >
                     <v-empty-state
                         icon="mdi-chart-pie-outline"
                         color="green"
                         title="Nenhuma receita registrada"
+                        :size="iconSize"
                         >
+                        <template #title>
+                            <span class="empty-state-title font-weight-bold">Nenhuma receita registrada</span>
+                        </template>
                         <template #text>
-                            <span>Registre suas receitas para acompanhar a origem dos seus ganhos.</span>
+                            <span class="empty-state-subtitle">Registre suas receitas para acompanhar a origem dos seus ganhos.</span>
                         </template>
                     </v-empty-state>
                 </div>
@@ -440,14 +472,17 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
 
         <div class="charts-row charts-row-single">
             <BaseCard :loading="isPendingCurrentBalance" title="Balanço mensal" subtitle="Compare suas receitas e despesas mensais">
-                <div class="d-flex align-center justify-center"  v-if="!allMovements?.length" style="height: 510px;">
+                <div class="d-flex align-center justify-center"  v-if="!allMovements?.length" >
                     <v-empty-state
                         icon="mdi-scale-balance"
                         color="primary"
-                        title="Sem dados para o balanço"
+                        :size="iconSize"
                         >
+                        <template #title>
+                            <span class="empty-state-title font-weight-bold">Sem dados para o balanço</span>
+                        </template>
                         <template #text>
-                            <span>Adicione receitas e despesas para acompanhar seu balanço mensal.</span>
+                            <span class="empty-state-subtitle">Adicione receitas e despesas para acompanhar seu balanço mensal.</span>
                         </template>
                     </v-empty-state>
                 </div>
@@ -484,15 +519,17 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
                 <div
                     class="d-flex align-center justify-center"
                     v-if="!onlyAccountsActive?.length"
-                    style="height: 510px;"
                 >
                     <v-empty-state
                         icon="mdi-bank-outline"
                         color="primary"
-                        title="Você ainda não possui contas."
+                        :size="iconSize"
                     >
+                        <template #title>
+                            <span class="empty-state-title font-weight-bold">Você ainda não possui contas.</span>
+                        </template>
                         <template #text>
-                            <span>
+                            <span class="empty-state-subtitle">
                                 Adicione uma conta bancária para começar a controlar seu saldo e suas movimentações.
                             </span>
                         </template>
@@ -583,21 +620,33 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
   gap: 10px;
 }
 
-
+@media (min-width: 1450px) {
+    .empty-state-title {
+        font-size: var(--text-base);
+    }
+}
 
 @media (max-width: 1450px) {
     .main-cards {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
     }
 
     .charts-row {
         grid-template-columns: 1fr;
     }
+
+    .empty-state-title {
+        font-size: var(--text-base);
+    }
+
+    .empty-state-subtitle {
+        font-size: var(--text-xs);
+    }
 }
 
 @media (max-width: 960px) {
     .main-cards {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
     }
 
     .charts-row {
@@ -607,6 +656,14 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
     .charts-balanco {
         display: flex;
         flex-direction: column;
+    }
+
+    .empty-state-title {
+        font-size: var(--text-base);
+    }
+
+    .empty-state-subtitle {
+        font-size: var(--text-sm);
     }
 }
 
@@ -623,6 +680,14 @@ import DialogHelpDashboard from "./components/DialogHelpDashboard.vue";
     .charts-balanco {
         display: flex;
         flex-direction: column;
+    }
+
+    .empty-state-title {
+        font-size: var(--text-sm);
+    }
+
+    .empty-state-subtitle {
+        font-size: var(--text-xs);
     }
 }
 

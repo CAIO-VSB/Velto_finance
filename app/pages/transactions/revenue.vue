@@ -506,12 +506,10 @@
         />
 
         <v-row
-            align="center"
-            class="mb-6"
+            class="main-btn-option"
         >
             <v-col
-                cols="12"
-                md="auto"
+                
             >
                 <v-menu
                     transition="scale-transition"
@@ -524,7 +522,8 @@
                             variant="tonal"
                             append-icon="mdi-chevron-down"
                             rounded="lg"
-                            class="text-none font-weight-medium"
+                            class="text-none font-weight-medium btn-routes-options"
+                            
                         >
                             {{ titleButtonOption }}
                         </v-btn>
@@ -565,9 +564,7 @@
             </v-col>
 
             <v-col
-                cols="12"
-                md
-                class="d-flex flex-wrap justify-md-end ga-3"
+                class="d-flex justify-md-end ga-3 main-bnt-filter-bnt-add-revenue"
             >
                 <v-btn
                     color="success"
@@ -888,4 +885,24 @@
     }
 
 }
+
+@media (max-width: 690px) {
+
+    .main-btn-option {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .main-bnt-filter-bnt-add-revenue {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .btn-routes-options {
+        width: 100%;
+    }
+
+}
+
 </style>
