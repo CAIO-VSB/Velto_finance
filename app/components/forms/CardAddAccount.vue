@@ -134,7 +134,6 @@
         <v-card
             rounded="xl"
             elevation="4"
-            class="overflow-hidden"
         >
             <v-card-item class="pa-5 pb-2">
                 <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">

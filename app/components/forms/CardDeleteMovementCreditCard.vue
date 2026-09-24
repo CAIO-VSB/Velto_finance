@@ -75,18 +75,19 @@
       <v-dialog
         transition="dialog-bottom-transition"
         width="650"
+        class="mx-auto"
         v-model="modelValue"
         v-if="props.draft"
       >
         <template v-slot:default="{ isActive }">
-          <v-card rounded="lg" width="700">
+          <v-card rounded="lg">
             
-              <template #title>
-              {{ props.title }}
+              <template  #title>
+                <span class="title">{{ props.title }}</span>
               </template>
 
               <template #subtitle>
-              {{ props.text }}
+                <span class="subtitle">{{ props.text }}</span>
               </template>
 
               <v-divider></v-divider>
@@ -143,28 +144,38 @@
 
 .info {
     display: flex;
-    gap: 10rem;
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
-.info > div:nth-child(1) {
+.info > div {
     display: flex;
     flex-direction: column;
-    max-width: 240px;
+    align-items: center;
+    min-width: 170px;
     font-size: 1rem;
 }
 
-.info > div:nth-child(2) {
+
+@media (max-width: 600px) {
+
+.info > div {
     display: flex;
-    flex-direction: column;
-    max-width: 350px;
+    flex-direction: row;
+    text-align: center;
+    min-width: 140px;
     font-size: 1rem;
+    gap: 20px;
 }
 
-.info > div:nth-child(3) {
-    display: flex;
-    flex-direction: column;
-    max-width: 350px;
-    font-size: 1rem;
+.title {
+    font-size: 1.2rem;
+}
+
+.subtitle {
+    font-size: 0.85rem;
+}
+
 }
 
 </style>

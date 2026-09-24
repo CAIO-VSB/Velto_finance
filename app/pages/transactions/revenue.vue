@@ -727,7 +727,7 @@
                 :search="search"
                 :loading="isPending"
                 mobile-breakpoint="md"
-                items-per-page="6"
+                items-per-page="10"
             >
                 <template #item.status_transaction="{ item }">
                     <v-icon

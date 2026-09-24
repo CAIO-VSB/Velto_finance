@@ -1,4 +1,4 @@
-$imagem = "caiodev2002/velto-finance:1.0.8"
+$imagem = "caiodev2002/velto-finance:1.0.9"
 
 Write-Host "Buildando imagem..."
 docker build -t $imagem .

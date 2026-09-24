@@ -2,6 +2,21 @@
 
 Todas as mudanças notáveis deste projeto serão documentadas aqui.
 
+## [1.0.10] - 2026-09-21
+### Corrigido
+- Tamanho das fonte nos cards do dashboard contém um responsividade em dispositivos menores
+
+## [1.0.9] - 2026-09-21
+### Adicionado
+- Novo layout nos templates do e-mails
+
+## [1.0.8] - 2026-09-21
+### Adicionado
+- Corrigido responsividade dos cards de deletar movimentações
+
+## [1.0.7] - 2026-09-21
+### Corrigido
+- Corrigido falha de autenticação no google auth2
 
 ## [1.0.6] - 2026-09-21
 ### Adicionado

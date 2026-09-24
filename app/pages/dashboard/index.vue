@@ -282,14 +282,14 @@
                 </div>
                 <div class="pa-5" v-else>
                     <div class="d-flex align-center ga-4">
-                        <span class="text-no-wrap font-weight-bold">Total de despesas pendentes</span>
+                        <span class="text-no-wrap font-weight-bold title-receitas-pendentes">Total de despesas pendentes</span>
                         <div class="d-flex justify-end w-100">
                             <v-chip class="font-weight-bold" variant="text" color="red"><span class="d-flex justify-end mr-5">{{ formatCurrency(totalExpensesPending) }}</span></v-chip>
                         </div>
                     </div>
                     <v-divider style="margin-top: 10px; margin-bottom: 10px;"></v-divider>
                     <div class="d-flex align-center ga-4">
-                        <span class="text-no-wrap font-weight-bold">Total de receitas pendentes</span>
+                        <span class="text-no-wrap font-weight-bold title-despesas-pendentes">Total de receitas pendentes</span>
                         <div class="d-flex justify-end w-100">
                             <v-chip class="font-weight-bold" variant="text" color="green"><span class="d-flex justify-end mr-5">{{ formatCurrency(totalRenevuePending) }}</span></v-chip>
                         </div>
@@ -359,7 +359,7 @@
 
                                 </span>
                                 </td>
-                                <td><v-chip :color="(item.type_transaction === 'receita') ? 'success' : 'red'">{{ formatCurrency(item.value_transaction)}}</v-chip></td>
+                                <td><v-chip :color="item.type_transaction === 'receita' || item.type_transaction === 'transferencia_entrada' ? 'green' : 'red'">{{ formatCurrency(item.value_transaction)}}</v-chip></td>
                                 <td>{{ item.name_accounts }}</td>
                             </tr>
                         </tbody>
@@ -688,6 +688,14 @@
 
     .empty-state-subtitle {
         font-size: var(--text-xs);
+    }
+
+    .title-receitas-pendentes {
+        font-size: 0.90rem;
+    }
+
+    .title-despesas-pendentes {
+        font-size: 0.90rem;
     }
 }
 

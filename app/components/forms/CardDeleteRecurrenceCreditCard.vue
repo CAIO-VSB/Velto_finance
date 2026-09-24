@@ -76,7 +76,7 @@
   <div>
       <v-dialog
         transition="dialog-bottom-transition"
-        width="700"
+        width="500"
         v-model="modelValue"
       >
         <template v-slot:default="{ isActive }">
@@ -93,19 +93,19 @@
               <v-divider></v-divider>
 
             <v-card-text class="text-display-large pa-5">
-              <div class="info-transaction">
+              <div class="info">
                   <div>
-                      <p style="color: rgba(0, 0, 0, 0.70);;">Descrição</p>
+                      <p style="color: rgba(0, 0, 0, 0.7);;">Descrição</p>
                       <p style="color: rgba(0, 0, 0, 0.5);">{{ props.draft?.description_credit }}</p>
                   </div>
 
                   <div>
-                      <p style="color: rgba(0, 0, 0, 0.70);">Valor</p>
+                      <p style="color: rgba(0, 0, 0, 0.7);">Valor</p>
                       <p style="color: rgba(0, 0, 0, 0.5);  text-align: center;">{{ formatCurrency(props.draft?.value_transaction ?? 0.00) }}</p>
                   </div>
 
                   <div>
-                      <p style="color: rgba(0, 0, 0, 0.70);">Data da compra</p>
+                      <p style="color: rgba(0, 0, 0, 0.7);">Data da compra</p>
                       <p style="color: rgba(0, 0, 0, 0.5);  text-align: center;">{{ dateFormated }}</p>
                   </div>
               </div> 
@@ -152,34 +152,44 @@
 
 <style scoped>
 
-.info-transaction {
+.info {
     display: flex;
-    gap: 10rem;
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
-.info-transaction > div:nth-child(1) {
+.info > div {
     display: flex;
     flex-direction: column;
-    max-width: 240px;
-    font-size: 1.1rem;
+    align-items: center;
+    min-width: 110px;
+    font-size: 1rem;
 }
 
 .info-alert {
     font-size: 1rem;
 }
 
-.info-transaction > div:nth-child(2) {
+
+@media (max-width: 600px) {
+
+.info > div {
     display: flex;
-    flex-direction: column;
-    max-width: 350px;
-    font-size: 1.1rem;
+    flex-direction: row;
+    text-align: center;
+    min-width: 170px;
+    font-size: 1rem;
+    gap: 20px;
 }
 
-.info-transaction > div:nth-child(3) {
-    display: flex;
-    flex-direction: column;
-    max-width: 350px;
-    font-size: 1.1rem;
+.title {
+    font-size: 1.2rem;
+}
+
+.subtitle {
+    font-size: 0.85rem;
+}
+
 }
 
 </style>

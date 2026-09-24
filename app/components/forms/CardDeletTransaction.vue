@@ -83,18 +83,18 @@ async function submitForm() {
   <div>
       <v-dialog
         transition="dialog-bottom-transition"
-        width="600"
+        width="500"
         v-model="modelValue"
       >
         <template v-slot:default="{ isActive }">
           <v-card rounded="xl">
             
             <template #title>
-              <span class="font-weight-bold text-blue-grey-darken-4">{{ props.title }}</span>
+              <span class="font-weight-bold text-blue-grey-darken-4 title">{{ props.title }}</span>
             </template>
 
               <template #subtitle>
-              {{ props.text }}
+                <span class="subtitle">{{ props.text }}</span>
               </template>
 
               <v-divider></v-divider>
@@ -151,29 +151,42 @@ async function submitForm() {
 <style scoped>
 
 .info {
-    display: flex;
-    gap: 10rem;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
-.info > div:nth-child(1) {
-    display: flex;
-    flex-direction: column;
-    max-width: 240px;
-    font-size: 1rem;
-}
-
-.info > div:nth-child(2) {
+.info > div {
   display: flex;
   flex-direction: column;
-  max-width: 350px;
+  align-items: center;
+  min-width: 120px;
   font-size: 1rem;
 }
 
-.info > div:nth-child(3) {
-  display: flex;
-  flex-direction: column;
-  max-width: 350px;
+.info-alert {
   font-size: 1rem;
 }
 
+
+@media (max-width: 600px) {
+
+.info > div {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  min-width: 170px;
+  font-size: 1rem;
+  gap: 20px;
+}
+
+.title {
+  font-size: 1.2rem;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+}
+
+}
 </style>

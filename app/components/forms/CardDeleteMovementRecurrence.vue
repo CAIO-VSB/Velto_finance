@@ -74,24 +74,24 @@
   <div>
       <v-dialog
         transition="dialog-bottom-transition"
-        width="610"
+        width="520"
         v-model="modelValue"
       >
         <template v-slot:default="{ isActive }">
           <v-card rounded="xl">
             
               <template #title>
-              <span class="font-weight-bold text-blue-grey-darken-4">Deseja deletar esta {{ props.draft?.type_transaction === 'despesa' ? 'despesa' : 'receita' }}?</span>
+              <span class="font-weight-bold text-blue-grey-darken-4 title">Deseja deletar esta {{ props.draft?.type_transaction === 'despesa' ? 'despesa' : 'receita' }}?</span>
               </template>
 
               <template #subtitle>
-              <span>Atenção! Essa ação não poderá ser desfeita</span>
+              <span class="subtitle">Atenção! Essa ação não poderá ser desfeita</span>
               </template>
 
               <v-divider></v-divider>
 
             <v-card-text class="text-display-large pa-5">
-              <div class="info-transaction">
+              <div class="info">
                   <div>
                       <p class="font-weight-bold text-blue-grey-darken-4">Descrição</p>
                       <p style="color: rgba(0, 0, 0, 0.5);">{{ props.draft?.description_transaction }}</p>
@@ -154,34 +154,44 @@
 
 <style scoped>
 
-.info-transaction {
+.info {
     display: flex;
-    gap: 10rem;
+    gap: 2rem;
+    flex-wrap: wrap;
 }
 
-.info-transaction > div:nth-child(1) {
+.info > div {
     display: flex;
     flex-direction: column;
-    max-width: 240px;
-    font-size: 1rem;
-}
-
-.info-transaction > div:nth-child(2) {
-    display: flex;
-    flex-direction: column;
-    max-width: 350px;
-    font-size: 1rem;
-}
-
-.info-transaction > div:nth-child(3) {
-    display: flex;
-    flex-direction: column;
-    max-width: 350px;
+    align-items: center;
+    min-width: 120px;
     font-size: 1rem;
 }
 
 .info-alert {
     font-size: 1rem;
+}
+
+
+@media (max-width: 600px) {
+
+.info > div {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    min-width: 170px;
+    font-size: 1rem;
+    gap: 20px;
+}
+
+.title {
+    font-size: 1.2rem;
+}
+
+.subtitle {
+    font-size: 0.85rem;
+}
+
 }
 
 </style>

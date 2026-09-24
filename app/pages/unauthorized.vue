@@ -11,8 +11,8 @@ const goToLogin = () => {
 <template>
   <main class="restricted-page">
     <v-card
-      class="restricted-card overflow-hidden"
-      rounded="xl"
+      class="restricted-card overflow-auto"  
+      rounded="lg"
       elevation="4"
       max-width="680"
       width="100%"

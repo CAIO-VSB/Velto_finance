@@ -106,7 +106,8 @@
         if (!resultSchema.success) {
           notifyInfo(
             "Dados inválidos",
-            "Verifique as informações preenchidas e tente novamente."
+            "Verifique as informações preenchidas e tente novamente.",
+            7000
           )
           return
         }

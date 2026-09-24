@@ -24,6 +24,7 @@
   const modelAddEconomy = ref(false)
   const modelEditEconomy = ref(false)
   const modelAddMovement = ref(false)
+  const teste = ref(true)
 
   const { data, isPending: isPendingGoals } = useQuery({
     queryKey: QUERY_KEYS.goals.all,
@@ -97,8 +98,9 @@
 
     const parseGoalsToEdit = {
       ...item,
-      start_date: new Date(item.start_date),
-      end_date: new Date(item.end_date)
+      start_date: parseDateOnlyToLocalDate(item.start_date),
+      end_date: parseDateOnlyToLocalDate(item.end_date),
+      value_initial: Number(item.value_initial)
     }
 
     if (option === 'edit') {
@@ -123,18 +125,8 @@
     <CardAddMovementSGoals v-model="modelAddMovement" />
 
     <v-container class="economy-empty-state d-flex align-center justify-center mt-4" v-if="!isPendingGoals && !data?.length">
-       <v-overlay
-        :model-value="isPendingGoals"
-        class="align-center justify-center"
-      >
-        <v-progress-circular
-          color="primary"
-          size="64"
-          indeterminate
-        ></v-progress-circular>
-      </v-overlay>
       <v-card
-        v-if="!isPending && !data?.length"
+        v-if="!isPendingGoals &&!data?.length"
         class="overflow-hidden"
         rounded="xl"
         elevation="4"
@@ -169,6 +161,7 @@
           </div>
 
           <v-stepper
+            mobile-breakpoint="sm"
             alt-labels
             color="primary"
             :items="['Defina a meta', 'Faça aportes', 'Acompanhe']"
@@ -182,7 +175,7 @@
                   color="primary"
                   variant="tonal"
                   rounded="lg"
-                  size="48"
+                  size="45"
                   class="mb-3"
                 >
                   <v-icon icon="mdi-target" />
@@ -252,11 +245,12 @@
       </v-card>
     </v-container>
 
+  
     <v-container
       fluid
       class="pa-4 pa-md-6"
-      v-else
     >
+      <div>
         <div class="d-flex justify-end ga-2 mb-6" >
             <v-btn
               color="primary"
@@ -303,7 +297,17 @@
             </v-menu>
         </div>
 
-        <div class="main-cards">
+        <div class="main-cards" v-if="isPendingGoals">
+          <v-skeleton-loader
+            v-for="n in 6"
+            :key="n"
+            type="image, article"
+            rounded="xl"
+            elevation="2"
+          />
+        </div>
+
+        <div class="main-cards" v-else>
                 <v-card
                   v-for="value in onlyGoalsActive"
                   :key="value.id"
@@ -421,6 +425,7 @@
                   
                 </v-card>
           </div>
+        </div>
 
         <div class="fab-wrapper">
           <v-tooltip

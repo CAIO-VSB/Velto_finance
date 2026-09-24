@@ -14,7 +14,6 @@
         selectGoals: number | null
     }>()
 
-
     const { notifyError, notifyInfo, notifySuccess } = useNotify()
 
     const editDraft = ref<TGoalsMovements | null>(null)

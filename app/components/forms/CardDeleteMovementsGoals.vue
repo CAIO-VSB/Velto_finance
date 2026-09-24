@@ -137,29 +137,43 @@
 <style scoped>
 
 .info {
-    display: flex;
-    gap: 10rem;
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
-.info > div:nth-child(1) {
-    display: flex;
-    flex-direction: column;
-    max-width: 240px;
-    font-size: 1rem;
-}
-
-.info > div:nth-child(2) {
+.info > div {
   display: flex;
   flex-direction: column;
-  max-width: 350px;
+  align-items: center;
+  min-width: 120px;
   font-size: 1rem;
 }
 
-.info > div:nth-child(3) {
-  display: flex;
-  flex-direction: column;
-  max-width: 350px;
+.info-alert {
   font-size: 1rem;
+}
+
+
+@media (max-width: 600px) {
+
+.info > div {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  min-width: 170px;
+  font-size: 1rem;
+  gap: 20px;
+}
+
+.title {
+  font-size: 1.2rem;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+}
+
 }
 
 </style>
