@@ -2,7 +2,7 @@
 
   import logo from "~~/app/assets/logo-side-bar.svg"
 
-  import ButtonActions from '~/layouts/components/buttonActions.vue'
+  import ButtonActions from '~/layouts/components/ButtonActions.vue'
   import TopBar from "~/layouts/components/TopBar.vue"
 
   const drawer = ref(true)
@@ -196,7 +196,7 @@
             <v-spacer />
 
             <span class="text-caption">
-              v1.0.9
+              v1.0.10
             </span>
           </div>
 
