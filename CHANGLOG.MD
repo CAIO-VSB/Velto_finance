@@ -45,3 +45,7 @@ Todas as mudanças notáveis deste projeto serão documentadas aqui.
 ### Adicionado
 - Upload de recibo/anexo em transações via Cloudinary
 - Opção "não debitar de conta bancária" em aplicações de metas
+
+## [1.0.1] - 2026-09-01
+### Adicionado
+- Mudanças no visual da telas de categorias
