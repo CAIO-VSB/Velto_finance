@@ -242,7 +242,7 @@
     </div>
 
     <div class="text-caption text-medium-emphasis text-center mt-1">
-      Versão 1.6.1
+      Versão 1.6.2
     </div>
   </div>
 </template>

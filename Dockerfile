@@ -36,28 +36,14 @@ COPY . .
 RUN npm run build
 
 # =========================================================================
-# ESTÁGIO 4: Executor de Produção (Imagem final limpa de produção)
+# ESTÁGIO: migrations 
 # =========================================================================
-FROM node:22-alpine AS runner
+FROM node:22-alpine AS migrator
 
 WORKDIR /app
 
-ENV NODE_ENV=production
-ENV PORT=3000
-ENV HOST=0.0.0.0
-
-# Copia o resultado final do estágio de build correto (app_builder)
-COPY --from=app_builder /app/.output ./.output
-
-EXPOSE 3000
-
-CMD ["node", ".output/server/index.mjs"]
-
-# =========================================================================
-# ESTÁGIO: migrations — não gera build do Nuxt
-# =========================================================================
-FROM node_base AS migrator
+RUN npm install --global node-pg-migrate@8.0.4 pg
 
 COPY migrations ./migrations
 
-CMD ["./node_modules/.bin/node-pg-migrate", "-j", "sql", "up"]
+CMD ["node-pg-migrate", "-j", "sql", "up"]

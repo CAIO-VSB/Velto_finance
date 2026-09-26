@@ -8,6 +8,20 @@ Todas as mudanças notáveis deste projeto serão documentadas aqui.
 ## 1.1.0 — funcionalidade nova, sem quebrar o que já existia.
 ## 1.1.1 — correções, ajustes visuais e pequenas melhorias.
 
+## [1.6.2] - 2026-09-26
+
+### Adicionado
+
+- Adiciona uma nova configuração no docker-compose para a criação de container de migração
+
+
+## [1.6.1] - 2026-09-26
+
+### Corrigido
+
+- Corrigi problemas visuais na telas de auth quando se utiliza o modo escuro
+
+
 ## [1.6.0] - 2026-09-26
 
 ### Adicionado

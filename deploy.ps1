@@ -1,5 +1,5 @@
-$appImage = "caiodev2002/velto-finance:1.6.1"
-$migrateImage = "caiodev2002/velto-finance-migrate:1.6.1"
+$appImage = "caiodev2002/velto-finance:1.6.2"
+$migrateImage = "caiodev2002/velto-finance-migrate:1.6.2"
 
 Write-Host "Gerando imagem da aplicação..."
 docker build --target runner -t $appImage .
