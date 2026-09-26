@@ -1,7 +1,7 @@
 export type TGoalsMovements = {
   id?: number
   goals_id?: number | null
-  description: string
+  description: string | null
   value_paid: number
   date_movement: Date
   accounts_id: number | null

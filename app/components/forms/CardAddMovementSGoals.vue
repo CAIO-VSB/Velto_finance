@@ -31,7 +31,7 @@
 
   const movementGoalsForm = ref<TGoalsMovements>({
     goals_id: null,
-    description: "",
+    description: "Sem descrição",
     value_paid: 0.00,
     date_movement: new Date(),
     accounts_id: null,
@@ -160,7 +160,7 @@
             <v-col
               cols="12" md="12" sm="12"
               >
-              <v-text-field prepend-inner-icon="mdi-pencil"  prepend-icon="" :rules="nameRules" :counter="45" maxlength="45"  autocomplete="name" name="name" label="Descrição" variant="solo-filled" v-model="movementGoalsForm.description"></v-text-field>
+              <v-text-field prepend-inner-icon="mdi-pencil"  prepend-icon="" :counter="45" maxlength="45"  autocomplete="name" name="name" label="Descrição" variant="solo-filled" v-model="movementGoalsForm.description"></v-text-field>
             </v-col>
 
               <v-col
