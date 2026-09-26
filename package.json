@@ -40,7 +40,7 @@
     "resend": "^6.28.0",
     "rrule": "^2.8.1",
     "ua-parser-js": "^2.0.10",
-    "undici": "^7.29.1",
+    "undici": "^7.30.0",
     "vue": "^3.5.17",
     "vue-currency-input": "^3.2.2",
     "vue-password-strength-meter": "^2.0.0",

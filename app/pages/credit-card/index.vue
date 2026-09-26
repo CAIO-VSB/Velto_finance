@@ -231,29 +231,126 @@
         @close-modal="closeModalHelpInvoice"
     />
 
-    <v-empty-state
-        v-if="!isPending && !isPendingDisable && !allCreditCard?.length && !allDeactivatedCrediCard?.length"
-        title="Adicione um cartão de crédito"
-        text="Cadastre um cartão de crédito para começar a visualizar suas faturas e acompanhar seus lançamentos."
-        :image="alertImg"
+    <v-container
+    v-if="!isPending && !allCreditCard?.length"
+    class="credit-cards-empty-state d-flex align-center justify-center mt-4"
     >
-        <v-btn
+    <v-card
+        class="overflow-hidden"
+        rounded="xl"
+        elevation="4"
+        max-width="900"
+        mx-auto
+        v-if="!isPending && !allCreditCard?.length"
+    >
+        <v-empty-state
+        icon="mdi-credit-card-outline"
+        color="primary"
+        title="Adicione seu primeiro cartão"
+        text="Cadastre seus cartões de crédito para acompanhar limites, faturas e manter seus gastos organizados."
+        class="pa-6 pb-2"
+        >
+        <template #actions>
+            <v-btn
             color="primary"
             prepend-icon="mdi-plus"
             rounded="lg"
-            class="text-none font-weight-bold"
+            class="text-none font-weight-bold mt-3"
             @click="modalAddCard = true"
-        >
+            >
             Adicionar cartão
-        </v-btn>
-    </v-empty-state>
+            </v-btn>
+        </template>
+        </v-empty-state>
+
+        <v-divider class="mx-6 mt-4" />
+
+        <section class="pa-6 pt-5">
+        <div class="text-subtitle-1 font-weight-bold text-blue-grey-darken-4 mb-4">
+            É simples começar
+        </div>
+
+        <v-stepper
+            mobile-breakpoint="sm"
+            alt-labels
+            color="primary"
+            :items="['Cadastre o cartão', 'Registre suas compras', 'Acompanhe sua fatura']"
+        >
+            <template #item.1>
+            <v-card flat class="text-center pa-5">
+                <v-avatar
+                color="primary"
+                variant="tonal"
+                rounded="lg"
+                size="48"
+                class="mb-3"
+                >
+                <v-icon icon="mdi-credit-card-plus-outline" />
+                </v-avatar>
+
+                <div class="font-weight-bold mb-1">
+                Cadastre seu cartão
+                </div>
+
+                <div class="text-body-2 text-medium-emphasis">
+                Informe o nome, limite disponível e as datas de fechamento e vencimento.
+                </div>
+            </v-card>
+            </template>
+
+            <template #item.2>
+            <v-card flat class="text-center pa-5">
+                <v-avatar
+                color="success"
+                variant="tonal"
+                rounded="lg"
+                size="48"
+                class="mb-3"
+                >
+                <v-icon icon="mdi-cart-plus" />
+                </v-avatar>
+
+                <div class="font-weight-bold mb-1">
+                Registre suas compras
+                </div>
+
+                <div class="text-body-2 text-medium-emphasis">
+                Adicione suas despesas para manter a fatura sempre atualizada.
+                </div>
+            </v-card>
+            </template>
+
+            <template #item.3>
+            <v-card flat class="text-center pa-5">
+                <v-avatar
+                color="info"
+                variant="tonal"
+                rounded="lg"
+                size="48"
+                class="mb-3"
+                >
+                <v-icon icon="mdi-file-document-outline" />
+                </v-avatar>
+
+                <div class="font-weight-bold mb-1">
+                Acompanhe sua fatura
+                </div>
+
+                <div class="text-body-2 text-medium-emphasis">
+                Veja o total gasto, o limite restante e se organize antes do vencimento.
+                </div>
+            </v-card>
+            </template>
+        </v-stepper>
+        </section>
+    </v-card>
+    </v-container>
 
     <v-container
-        v-else-if="!isPending && !isPendingDisable && (allCreditCard?.length || allDeactivatedCrediCard?.length)"
+        v-else
         fluid
         class="mt-6 pa-4 pa-md-6"
     >
-
         <v-row>
             <v-col
                 cols="12"
@@ -285,7 +382,7 @@
                                             </v-avatar>
                                         </template>
 
-                                        <span class="font-weight-bold text-blue-grey-darken-4 text-truncate">
+                                        <span class="font-weight-bold text-truncate">
                                             {{ selectedCard }}
                                         </span>
 
@@ -298,11 +395,11 @@
                                 <v-card
                                     min-width="320"
                                     rounded="xl"
-                                    elevation="4"
+                                    elevation="2"
                                     class="overflow-hidden"
                                 >
                                     <div class="pa-4">
-                                        <div class="text-subtitle-1 font-weight-bold text-blue-grey-darken-4">
+                                        <div class="text-subtitle-1 font-weight-bold">
                                             Cartões de crédito
                                         </div>
 
@@ -404,7 +501,7 @@
                                         Limite utilizado
                                     </span>
 
-                                    <span class="text-body-2 font-weight-bold text-blue-grey-darken-4">
+                                    <span class="text-body-2 font-weight-bold text-medium-emphasis">
                                         {{ valueLimitedUsed.toFixed() ?? 0.00 }}%
                                     </span>
                                 </div>

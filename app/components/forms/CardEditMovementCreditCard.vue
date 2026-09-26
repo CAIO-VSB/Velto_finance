@@ -200,7 +200,7 @@
       <v-dialog v-model="modelValue" max-width="750">
         <v-card rounded="lg" elevation="6">
           <v-card-item class="pa-4 pb-2">
-            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken">
               Editar despesa do cartão de crédito
             </v-card-title>
             <template #prepend>

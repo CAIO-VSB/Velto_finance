@@ -90,24 +90,24 @@ async function submitForm() {
             <v-card-text class="text-display-large pa-5">
               <div class="info">
                   <div>
-                      <p class="font-weight-bold text-blue-grey-darken-4">De</p>
+                      <p class="font-weight-bold text-blue-grey-darken">De</p>
                         <v-avatar size="35">
                             <v-img :src="props.draft?.logo_origem"></v-img>
                         </v-avatar>
-                      <p style="color: rgba(0, 0, 0, 0.7); text-align: center;">{{ props.draft?.account_origin_name }}</p>
+                      <p style="text-align: center;">{{ props.draft?.account_origin_name }}</p>
                   </div>
 
                   <div >
-                    <p class="font-weight-bold text-blue-grey-darken-4">Para</p>
+                    <p class="font-weight-bold text-blue-grey-darken">Para</p>
                       <v-avatar size="35">
                         <v-img :src="props.draft?.logo_destino"></v-img>
                       </v-avatar>
-                    <p style="color: rgba(0, 0, 0, 0.7); text-align: center;">{{ props.draft?.account_destination_name}}</p>
+                    <p style="text-align: center;">{{ props.draft?.account_destination_name}}</p>
                   </div>
 
                   <div>
-                      <p class="font-weight-bold text-blue-grey-darken-4">Valor</p>
-                      <p style="color: rgba(0, 0, 0, 0.7); font-size: 1rem;"> {{ formatCurrency(props.draft?.value_transfer ?? 0)}}</p>
+                      <p class="font-weight-bold text-blue-grey-darken">Valor</p>
+                      <p style="font-size: 1rem;"> {{ formatCurrency(props.draft?.value_transfer ?? 0)}}</p>
                   </div>
               </div> 
             </v-card-text>

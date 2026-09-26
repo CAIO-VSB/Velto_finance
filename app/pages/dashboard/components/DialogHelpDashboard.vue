@@ -111,9 +111,6 @@
 </template>
 
 <style scoped>
-.help-card {
-  background-color: #FAFAFA;
-}
 
 .help-content {
   max-width: 640px;
@@ -126,7 +123,6 @@
 }
 
 .intro-text {
-  color: rgba(0, 0, 0, 0.6);
   font-size: 0.95rem;
   max-width: 420px;
   margin: 0 auto;
@@ -156,7 +152,6 @@
 
 .guide-description {
   font-size: 0.9rem;
-  color: rgba(0, 0, 0, 0.65);
   line-height: 1.4;
 }
 

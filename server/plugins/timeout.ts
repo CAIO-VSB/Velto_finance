@@ -1,6 +1,5 @@
 import { Agent, setGlobalDispatcher } from 'undici'
 
-
 export default defineNitroPlugin(() => {
     setGlobalDispatcher(new Agent({
         connect: {

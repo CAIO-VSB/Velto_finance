@@ -140,9 +140,137 @@
 
 
 <template>
+    
+    <CardAddAccount v-model="modalAddAccount" />
+
+    <CardEditAccount
+        v-model="modalEditAccount"
+        :draft="editDraft"
+    />
+
+    <CardAddMovimentsExpenses
+        v-model="modalAddExpense"
+        :draft="draftAccount"
+    />
+
+    <v-container
+    v-if="!isPending && !data?.length"
+    class="bank-accounts-empty-state d-flex align-center justify-center mt-4"
+    >
+    <v-card
+        class="overflow-hidden"
+        rounded="xl"
+        elevation="4"
+        max-width="900"
+        mx-auto
+    >
+        <v-empty-state
+        icon="mdi-bank-outline"
+        color="primary"
+        title="Adicione sua primeira conta bancária"
+        text="Cadastre suas contas para acompanhar saldos, movimentações e organizar melhor sua vida financeira."
+        class="pa-6 pb-2"
+        >
+        <template #actions>
+            <v-btn
+            color="primary"
+            prepend-icon="mdi-plus"
+            rounded="lg"
+            class="text-none font-weight-bold mt-3"
+            @click="modalAddAccount = true"
+            >
+            Adicionar conta bancária
+            </v-btn>
+        </template>
+        </v-empty-state>
+
+        <v-divider class="mx-6 mt-4" />
+
+        <section class="pa-6 pt-5">
+        <div class="text-subtitle-1 font-weight-bold text-blue-grey-darken-4 mb-4">
+            É simples começar
+        </div>
+
+        <v-stepper
+            mobile-breakpoint="sm"
+            alt-labels
+            color="primary"
+            :items="['Cadastre a conta', 'Registre movimentações', 'Acompanhe seus saldos']"
+        >
+            <template #item.1>
+            <v-card flat class="text-center pa-5">
+                <v-avatar
+                color="primary"
+                variant="tonal"
+                rounded="lg"
+                size="48"
+                class="mb-3"
+                >
+                <v-icon icon="mdi-bank-plus" />
+                </v-avatar>
+
+                <div class="font-weight-bold mb-1">
+                Cadastre sua conta
+                </div>
+
+                <div class="text-body-2 text-medium-emphasis">
+                Informe o banco, tipo de conta e saldo inicial para começar.
+                </div>
+            </v-card>
+            </template>
+
+            <template #item.2>
+            <v-card flat class="text-center pa-5">
+                <v-avatar
+                color="success"
+                variant="tonal"
+                rounded="lg"
+                size="48"
+                class="mb-3"
+                >
+                <v-icon icon="mdi-swap-horizontal" />
+                </v-avatar>
+
+                <div class="font-weight-bold mb-1">
+                Registre movimentações
+                </div>
+
+                <div class="text-body-2 text-medium-emphasis">
+                Adicione entradas, saídas e transferências para manter tudo atualizado.
+                </div>
+            </v-card>
+            </template>
+
+            <template #item.3>
+            <v-card flat class="text-center pa-5">
+                <v-avatar
+                color="info"
+                variant="tonal"
+                rounded="lg"
+                size="48"
+                class="mb-3"
+                >
+                <v-icon icon="mdi-chart-line" />
+                </v-avatar>
+
+                <div class="font-weight-bold mb-1">
+                Acompanhe seus saldos
+                </div>
+
+                <div class="text-body-2 text-medium-emphasis">
+                Visualize o saldo de cada conta e tenha mais controle sobre seu dinheiro.
+                </div>
+            </v-card>
+            </template>
+        </v-stepper>
+        </section>
+    </v-card>
+    </v-container>
+
     <v-container
       fluid
       class="mt-6 pa-4 pa-md-6"
+      v-else
     >
         <div class="d-flex justify-end ga-2 mb-6" >
             <v-btn
@@ -198,7 +326,6 @@
                     height="175"
                     rounded="xl"
                     variant="outlined"
-                    class="bg-white"
                 >
                     <div class="d-flex flex-column align-center justify-center h-100 ga-3">
                         <v-btn
@@ -260,7 +387,7 @@
                             </v-chip>
                         </div>
 
-                        <div class="text-h6 font-weight-bold text-blue-grey-darken-4 mt-5 mb-5">
+                        <div class="text-h6 font-weight-bold mt-5 mb-5">
                             {{ formatCurrency(totalForAccountsActive || 0.00) }}
                         </div>
 
@@ -359,18 +486,6 @@
                 </v-card>
             </v-col>
         </v-row>
-
-        <CardAddAccount v-model="modalAddAccount" />
-
-        <CardEditAccount
-            v-model="modalEditAccount"
-            :draft="editDraft"
-        />
-
-        <CardAddMovimentsExpenses
-            v-model="modalAddExpense"
-            :draft="draftAccount"
-        />
     </v-container>
 </template>
 

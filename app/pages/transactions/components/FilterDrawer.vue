@@ -117,7 +117,7 @@
     >
         <v-list class="pa-2">
             <v-list-item class="px-3 py-2">
-                <v-list-item-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+                <v-list-item-title class="text-h6 font-weight-bold">
                     Filtro de transações
                 </v-list-item-title>
 
@@ -304,7 +304,7 @@
 
         <v-card-actions class="pa-5 justify-space-between">
             <v-btn
-                variant="text"
+                variant="plain"
                 class="text-none font-weight-medium"
                 @click="resetForm"
             >

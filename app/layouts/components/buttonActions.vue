@@ -119,7 +119,7 @@
         class="overflow-hidden"
       >
         <div class="pa-4">
-          <div class="text-subtitle-1 font-weight-bold text-blue-grey-darken-4">
+          <div class="text-subtitle-1 font-weight-bold text-blue-grey-darken">
             Novo lançamento
           </div>
 
@@ -157,7 +157,7 @@
               </v-avatar>
             </template>
 
-            <v-list-item-title class="font-weight-medium text-blue-grey-darken-3">
+            <v-list-item-title class="font-weight-medium text-blue-grey-darken">
               {{ item.title }}
             </v-list-item-title>
 

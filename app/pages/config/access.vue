@@ -163,7 +163,7 @@
       <v-col cols="12" lg="4">
         <v-card rounded="lg" elevation="2" >
           <v-card-item class="pa-4 pb-2">
-            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken">
               Meu perfil
             </v-card-title>
 
@@ -195,7 +195,7 @@
               </template>
             </v-img>
 
-            <div class="text-subtitle-1 font-weight-bold text-blue-grey-darken-4 text-truncate">
+            <div class="text-subtitle-2 font-weight-bold text-blue-grey-darken text-truncate">
               {{ authStore.user?.name}}
             </div>
 
@@ -242,7 +242,7 @@
       <v-col cols="12" lg="8" class="d-flex flex-column ga-4">
         <v-card rounded="lg" elevation="2">
           <v-card-item class="pa-4 pb-2">
-            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken">
               Dados da conta
             </v-card-title>
 
@@ -386,7 +386,7 @@
 
         <v-card rounded="lg" elevation="2">
           <v-card-item class="pa-4 pb-2">
-            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken">
               Informações da sessão
             </v-card-title>
 

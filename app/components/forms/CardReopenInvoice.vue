@@ -68,7 +68,7 @@
 
                 <template #title>
                     <div class="text-center mb-5" >
-                        <span style="font-size: var(--text-md);" class="text-center mb-5 font-weight-bold text-blue-grey-darken-4">Reabrir fatura</span>
+                        <span style="font-size: var(--text-md);" class="text-center mb-5 font-weight-bold text-blue-grey-darken">Reabrir fatura</span>
                     </div>
                 </template>
 

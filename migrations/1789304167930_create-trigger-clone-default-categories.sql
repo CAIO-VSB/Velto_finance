@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION trg_clone_default_categories()
+CREATE OR REPLACE FUNCTION clone_default_categories()
 RETURNS TRIGGER AS $$
 BEGIN
     INSERT INTO categories (user_id, name_identifier, url_icon, active, type_categorie)

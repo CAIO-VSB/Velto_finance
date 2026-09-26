@@ -90,7 +90,6 @@
       }
     } catch (error) {
       notifyError("Algo deu errado", "Ocorreu um erro inesperado. Tente novamente em alguns instantes.")
-      console.log("Erro ao criar usuário" + error);
     } finally {
       loading.value = false;
     }
@@ -104,7 +103,6 @@
       
     } catch (error) {
       notifyError("Algo deu errado", "Ocorreu um erro inesperado. Tente novamente em alguns instantes.")
-      console.log("Erro ao autenteicar com o google" + error);
     } finally {
       loadingGoogle.value = true;
     }
@@ -118,7 +116,6 @@
 
     } catch (error) {
       notifyError("Algo deu errado", "Ocorreu um erro inesperado. Tente novamente em alguns instantes.")
-      console.log("Erro ao autenteicar com o google" + error);
     } finally {
       loadingFacebook.value = false
     }
@@ -206,7 +203,7 @@
                 Crie sua conta
               </h2>
 
-              <p class="text-body-1 text-medium-emphasis mb-0">
+              <p class="text-body-1 bg-white text-medium-emphasis mb-0">
                 Crie sua conta e comece a organizar suas finanças.
               </p>
             </header>
@@ -480,6 +477,7 @@
                     <v-avatar
                       :image="logoGoogle"
                       size="20"
+                      color="white"
                     />
                   </template>
 
@@ -502,6 +500,7 @@
                     <v-avatar
                       :image="logoDiscord"
                       size="22"
+                      color="white"
                     />
                   </template>
 
@@ -510,7 +509,7 @@
               </div>
 
               <p
-                class="text-center text-body-2 text-medium-emphasis ma-0 mt-1"
+                class="text-center text-body-2 bg-white text-medium-emphasis ma-0 mt-1"
               >
                 Já possui uma conta?
 

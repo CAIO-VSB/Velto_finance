@@ -55,7 +55,7 @@
           </template>
 
           <div class="d-none d-sm-flex flex-column align-start mr-2">
-            <span class="text-body-2 font-weight-bold text-blue-grey-darken-4">
+            <span class="text-body-2 font-weight-bold">
               {{ authStore.user?.name }}
             </span>
 
@@ -90,7 +90,7 @@
             </v-avatar>
 
             <div class="overflow-hidden">
-              <div class="text-subtitle-1 font-weight-bold text-blue-grey-darken-4 text-truncate">
+              <div class="text-subtitle-1 font-weight-bold text-truncate">
                 {{ authStore.user?.name }}
               </div>
 
@@ -104,12 +104,12 @@
         <v-divider />
 
         <!-- Informações -->
-        <div class="px-5 py-4 bg-blue-grey-lighten-5">
+        <div class="px-5 py-4">
           <div class="text-caption text-medium-emphasis mb-1">
             LOGADO COMO
           </div>
 
-          <div class="text-body-2 font-weight-medium text-blue-grey-darken-3 text-truncate">
+          <div class="text-body-2 font-weight-medium text-blue-grey-darken-1 text-truncate">
             {{ authStore.user?.email }}
           </div>
         </div>

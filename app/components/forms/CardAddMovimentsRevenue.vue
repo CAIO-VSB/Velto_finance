@@ -305,7 +305,7 @@
     <v-dialog v-model="modelValue" max-width="760">
       <v-card rounded="lg" elevation="8">
         <v-card-item class="pa-4 pb-2">
-          <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+          <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken">
             Nova receita
           </v-card-title>
 
@@ -456,7 +456,6 @@
                 v-model:menu="menuCategorias"
                 :items="filterCategorias"
                 :rules="selectRules"
-                :loading="isPendingMovements"
                 item-title="name_identifier"
                 item-value="id"
                 autocomplete="off"
@@ -530,18 +529,6 @@
                 prepend-inner-icon="mdi-note-text-outline"
                 autocomplete="off"
                 label="Observação"
-                variant="solo-filled"
-                density="comfortable"
-                color="primary"
-              />
-            </v-col>
-
-            <v-col cols="12">
-              <v-file-input
-                prepend-inner-icon="mdi-paperclip"
-                prepend-icon=""
-                clearable
-                label="Anexar comprovante"
                 variant="solo-filled"
                 density="comfortable"
                 color="primary"

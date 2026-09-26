@@ -613,6 +613,7 @@
                     v-tooltip="'Resultado do período: receitas menos despesas. Valores positivos indicam saldo favorável; negativos indicam déficit.'"
                 />
             </v-col>
+            
             </div>
         </v-row>
         

@@ -149,7 +149,7 @@ import CardReopenInvoice from "~/components/forms/CardReopenInvoice.vue";
         :loading="props.loading ?? false"
     >
         <v-card-item class="pa-5 pb-0">
-            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+            <v-card-title class="text-h6 font-weight-bold">
                 Detalhamento
             </v-card-title>
 
@@ -242,7 +242,7 @@ import CardReopenInvoice from "~/components/forms/CardReopenInvoice.vue";
                         Fechamento
                     </span>
 
-                    <span class="text-body-2 font-weight-bold text-blue-grey-darken-4">
+                    <span class="text-body-2 font-weight-bold text-blue-grey-darken">
                         {{ sumary?.fechamento }}
                     </span>
                 </div>
@@ -252,7 +252,7 @@ import CardReopenInvoice from "~/components/forms/CardReopenInvoice.vue";
                         Vencimento
                     </span>
 
-                    <span class="text-body-2 font-weight-bold text-blue-grey-darken-4">
+                    <span class="text-body-2 font-weight-bold text-blue-grey-darken">
                         {{ sumary?.vencimento }}
                     </span>
                 </div>
@@ -262,7 +262,7 @@ import CardReopenInvoice from "~/components/forms/CardReopenInvoice.vue";
                         Limite total
                     </span>
 
-                    <span class="text-body-2 font-weight-bold text-blue-grey-darken-4">
+                    <span class="text-body-2 font-weight-bold text-blue-grey-darken">
                         {{ formatCurrency(sumary?.limiteTotal ?? 0.00) }}
                     </span>
                 </div>
@@ -272,7 +272,7 @@ import CardReopenInvoice from "~/components/forms/CardReopenInvoice.vue";
                         4 últimos dígitos
                     </span>
 
-                    <span class="text-body-2 font-weight-bold text-blue-grey-darken-4">
+                    <span class="text-body-2 font-weight-bold text-blue-grey-darken">
                         {{ sumary?.ultimosDigitos }}
                     </span>
                 </div>

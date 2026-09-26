@@ -2,7 +2,7 @@ services:
   # SERVIÇO 1: Banco de Dados PostgreSQL
   postgres_db:
     image: postgres:18-alpine
-    container_name: nuxt4_postgres
+    container_name: velto-db
     environment: 
       POSTGRES_USER: ${USER_DATABASE}
       POSTGRES_PASSWORD: ${PASSWORD_DATABASE}
@@ -20,7 +20,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: development
-    container_name: nuxt4_app_dev
+    container_name: velto-app
     ports: 
       - "3000:3000"
     environment:

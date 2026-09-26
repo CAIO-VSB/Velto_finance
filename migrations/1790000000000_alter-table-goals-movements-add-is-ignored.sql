@@ -1,0 +1,2 @@
+ALTER TABLE goals_movements
+ADD COLUMN IF NOT EXISTS is_ignored BOOLEAN;

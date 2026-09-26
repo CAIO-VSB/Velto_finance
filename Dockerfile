@@ -52,3 +52,12 @@ COPY --from=app_builder /app/.output ./.output
 EXPOSE 3000
 
 CMD ["node", ".output/server/index.mjs"]
+
+# =========================================================================
+# ESTÁGIO: migrations — não gera build do Nuxt
+# =========================================================================
+FROM node_base AS migrator
+
+COPY migrations ./migrations
+
+CMD ["./node_modules/.bin/node-pg-migrate", "-j", "sql", "up"]

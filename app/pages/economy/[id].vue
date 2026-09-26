@@ -149,12 +149,18 @@
                                         class="flex-grow-1 justify-start text-none px-2"
                                     >
                                         <template #prepend>
-                                            <v-avatar size="34">
-                                                <v-img :src="metaLogo" />
+                                            <v-avatar
+                                            color="primary"
+                                            variant="tonal"
+                                            rounded="lg"
+                                            size="42"
+                                            class="mr-3"
+                                            >
+                                                <v-icon icon="mdi-target" />
                                             </v-avatar>
                                         </template>
 
-                                        <span class="font-weight-bold text-blue-grey-darken-4 text-truncate">
+                                        <span class="font-weight-bold text-blue-grey-darken text-truncate">
                                             {{ selectedNameGoals }}
                                         </span>
 
@@ -171,7 +177,7 @@
                                     class="overflow-hidden"
                                 >
                                     <div class="pa-4">
-                                        <div class="text-subtitle-1 font-weight-bold text-blue-grey-darken-4">
+                                        <div class="text-subtitle-1 font-weight-bold text-blue-grey-darken">
                                             Metas de economia
                                         </div>
 
@@ -190,10 +196,21 @@
                                             v-for="goals in onlyGoalsActive"
                                             :key="goals.id"
                                             :value="goals"
-                                            :prepend-avatar="metaLogo"
                                             rounded="lg"
                                             @click="handleSelectedGoals(goals)"
                                         >
+                                            <template #prepend>
+                                            <v-avatar
+                                            color="primary"
+                                            variant="tonal"
+                                            rounded="lg"
+                                            size="42"
+                                            class="mr-3"
+                                            >
+                                                <v-icon icon="mdi-target" />
+                                            </v-avatar>
+                                            </template>
+
                                             <v-list-item-title class="font-weight-medium">
                                                 {{ goals.name_identifier   }}
                                             </v-list-item-title>
@@ -211,7 +228,7 @@
                                         Meta alcançada
                                     </span>
 
-                                    <span class="text-body-2 font-weight-bold text-blue-grey-darken-4">
+                                    <span class="text-body-2 font-weight-bold text-medium-emphasis">
                                         {{ totalForGoals.percentual.toFixed() ?? 0.00 }}%
                                     </span>
                                 </div>

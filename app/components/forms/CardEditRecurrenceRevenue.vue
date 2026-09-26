@@ -225,7 +225,7 @@
         <v-card rounded="lg" elevation="5">
 
           <v-card-item class="pa-4 pb-2">
-            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken">
               Editar receita
             </v-card-title>
 
@@ -381,7 +381,7 @@
             cols="12" md="12" sm="12"
             >
               <v-sheet border rounded="lg" class="pa-4">
-                <div class="text-body-2 font-weight-bold text-blue-grey-darken-3 mb-3">
+                <div class="text-body-2 font-weight-bold text-blue-grey-darken mb-3">
                   Opções da receita
                 </div>
 
@@ -404,7 +404,7 @@
                 dens cols="12" md="12" sm="12"
               >
               <v-sheet border rounded="lg" class="pa-4">
-                <div class="text-body-2 font-weight-bold text-blue-grey-darken-3 mb-3">
+                <div class="text-body-2 font-weight-bold text-blue-grey-darken mb-3">
                   {{ `Atenção! Esta é uma despesa ${(props.draft.type_recurrence === 'fixa') ? 'fixa' : 'parcelada'}. Você deseja:` }}
                 </div>
 

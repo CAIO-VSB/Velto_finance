@@ -38,7 +38,7 @@
                             {{ propsCards.subtitle }}
                         </div>
 
-                        <div style="font-size: var(--text-base);" class="text-h6 font-weight-bold text-blue-grey-darken-4">
+                        <div style="font-size: var(--text-base);" class="text-h6 font-weight-bold">
                             {{ formatCurrency(propsCards.value) }}
                         </div>
                     </div>

@@ -109,7 +109,7 @@
             </v-btn>
 
             <div>
-                <div class="text-h6 font-weight-bold text-blue-grey-darken-4">
+                <div class="text-h6 font-weight-bold text-blue-grey-darken">
                     Contas arquivadas
                 </div>
 
@@ -131,7 +131,7 @@
                     class="overflow-hidden"
                 >
                     <v-card-item class="pa-4 pb-2">
-                        <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+                        <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken">
                             Contas
                         </v-card-title>
                     </v-card-item>
@@ -196,7 +196,7 @@
                             />
                         </div>
 
-                        <div style="font-size: var(--text-md);" class="font-weight-bold text-blue-grey-darken-4 mt-5">
+                        <div style="font-size: var(--text-md);" class="font-weight-bold text-blue-grey-darken mt-5">
                             {{ formatCurrency(totalArchived ?? 0.00) }}
                         </div>
 

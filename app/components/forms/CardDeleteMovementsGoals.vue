@@ -76,11 +76,11 @@
           <v-card rounded="xl">
             
             <template #title>
-              <span class="font-weight-bold text-blue-grey-darken-4">{{ props.title }}</span>
+              <span class="font-weight-bold text-blue-grey-darken title">{{ props.title }}</span>
             </template>
 
               <template #subtitle>
-              {{ props.text }}
+                <span class="subtitle">{{ props.text }}</span>
               </template>
 
               <v-divider></v-divider>
@@ -88,18 +88,18 @@
             <v-card-text class="text-display-large pa-5">
               <div class="info">
                   <div>
-                      <p class="font-weight-bold text-blue-grey-darken-4">Descrição</p>
-                      <p style="color: rgba(0, 0, 0, 0.5);">{{ props.draft?.description}}</p>
+                      <p class="font-weight-bold text-blue-grey-darken">Descrição</p>
+                      <p >{{ props.draft?.description}}</p>
                   </div>
 
                   <div>
-                      <p class="font-weight-bold text-blue-grey-darken-4">Valor</p>
-                      <p style="color: rgba(0, 0, 0, 0.5);  text-align: center;">{{ formatCurrency(props.draft?.value_paid ?? 0.00) }}</p>
+                      <p class="font-weight-bold text-blue-grey-darken">Valor</p>
+                      <p style="  text-align: center;">{{ formatCurrency(props.draft?.value_paid ?? 0.00) }}</p>
                   </div>
 
                   <div>
-                      <p class="font-weight-bold text-blue-grey-darken-4">Data</p>
-                      <p style="color: rgba(0, 0, 0, 0.5);  text-align: center;">{{ props.draft?.date_movement.split("T")[0]?.split("-").reverse().join("/")}}</p>
+                      <p class="font-weight-bold text-blue-grey-darken">Data</p>
+                      <p style="  text-align: center;">{{ props.draft?.date_movement.split("T")[0]?.split("-").reverse().join("/")}}</p>
                   </div>
               </div> 
             </v-card-text>
@@ -146,7 +146,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 120px;
+  min-width: 170px;
   font-size: 1rem;
 }
 
@@ -167,7 +167,7 @@
 }
 
 .title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .subtitle {

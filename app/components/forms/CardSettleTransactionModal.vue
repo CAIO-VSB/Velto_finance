@@ -128,7 +128,7 @@
           <v-card rounded="xl" elevation="5" class="pa-1">
             
             <template #title>
-              <span class="font-weight-bold text-blue-grey-darken-4">{{ props.title }}</span>
+              <span class="font-weight-bold text-blue-grey-darken">{{ props.title }}</span>
             </template>
 
             <template #subtitle>

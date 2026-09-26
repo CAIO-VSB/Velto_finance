@@ -4,10 +4,40 @@
 
   import ButtonActions from '~/layouts/components/ButtonActions.vue'
   import TopBar from "~/layouts/components/TopBar.vue"
+  import { useTheme } from 'vuetify'
+
+  type ThemeMode = "light" | "dark" | "system"
 
   const drawer = ref(true)
   const rail = ref(false)
   const openedGroups = ref(['Visão geral'])
+
+  const theme = useTheme()
+  const themeMode = ref<ThemeMode>("light")
+
+  function handleThemeChange(mode: ThemeMode) {
+    themeMode.value = mode
+    localStorage.setItem('theme', themeMode.value)
+    theme.change(mode)
+  }
+
+  const mainContentClass = computed(() => ({
+    'main-content': themeMode.value === 'light'
+  }))
+
+  onMounted(() => {
+    const savedTheme = localStorage.getItem("theme")
+
+    if (
+      savedTheme === 'light' ||
+      savedTheme === 'dark' ||
+      savedTheme === 'system' 
+    ) {
+      themeMode.value = savedTheme
+      theme.change(savedTheme)
+    }
+    
+  })
 
   const nav = [
     { title: 'Visão geral', icon: 'mdi-home-analytics', value: 'Visão geral', to: '/dashboard' },
@@ -24,7 +54,7 @@
     <v-navigation-drawer
       v-model="drawer"
       :rail="rail"
-      :width="280"
+      :width="300"
       border="end"
       color="surface"
       @click="rail = false"
@@ -175,33 +205,47 @@
 
       </v-list>
 
-      <template #append>
-        <div class="px-3 pb-4">
+    <template #append>
+  <div class="px-3 pb-4">
+    <v-divider class="mb-3" />
 
-          <v-divider class="mb-3" />
+    <div class="d-flex align-center justify-center ga-2">
+      <v-btn
+        icon="mdi-white-balance-sunny"
+        rounded="circle"
+        size="small"
+        :color="themeMode === 'light' ? 'primary' : undefined"
+        :variant="themeMode === 'light' ? 'tonal' : 'text'"
+        v-tooltip="'Tema claro'"
+        @click="handleThemeChange('light')"
+      />
 
-          <div
-            class="d-flex align-center px-3 text-medium-emphasis"
-          >
-            <v-icon
-              icon="mdi-information-outline"
-              size="18"
-              class="mr-2"
-            />
+      <v-btn
+        icon="mdi-weather-night"
+        rounded="circle"
+        size="small"
+        :color="themeMode === 'dark' ? 'primary' : undefined"
+        :variant="themeMode === 'dark' ? 'tonal' : 'text'"
+        v-tooltip="'Tema escuro'"
+        @click="handleThemeChange('dark')"
+      />
 
-            <span class="text-caption">
-              Velto Finance
-            </span>
+      <v-btn
+        icon="mdi-theme-light-dark"
+        rounded="circle"
+        size="small"
+        :color="themeMode === 'system' ? 'primary' : undefined"
+        :variant="themeMode === 'system' ? 'tonal' : 'text'"
+        v-tooltip="'Usar tema do dispositivo'"
+        @click="handleThemeChange('system')"
+      />
+    </div>
 
-            <v-spacer />
-
-            <span class="text-caption">
-              v1.0.10
-            </span>
-          </div>
-
-        </div>
-      </template>
+    <div class="text-caption text-medium-emphasis text-center mt-1">
+      Versão 1.5.0
+    </div>
+  </div>
+</template>
 
     </v-navigation-drawer>
 
@@ -209,7 +253,7 @@
     <TopBar v-model="drawer" />
 
     <v-main
-      class="bg-backgroundPrimary"
+      :class="mainContentClass"
       style="overflow-y: auto; overflow-x: hidden;"
     >
       <div class="dashboard-content">
@@ -221,8 +265,13 @@
 </template>
 
 <style scoped>
+
 .size-item-title {
   font-size: var(--text-base);
+}
+
+.main-content {
+  background-color: #f6f7fb;
 }
 
 .drawer-logo {

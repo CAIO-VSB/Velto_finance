@@ -24,7 +24,7 @@
     >
 
     <v-card-item class="pa-5 pb-0">
-        <v-card-title class="text-blue-grey-darken-4">
+        <v-card-title>
             {{props.title}}
         </v-card-title>
 

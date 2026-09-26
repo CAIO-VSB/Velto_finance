@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
   import InfoUser from './myAccount.vue'
-
+  
   const emits = defineEmits(['drawer'])
 
   const drawer = defineModel<boolean>()
@@ -11,6 +11,7 @@
   function handleEmitsDrawer() {
     drawer.value = !drawer.value
   }
+
 
 </script>
 
@@ -33,14 +34,16 @@
     </template>
 
     <template #title>
-      <span class="font-weight-bold text-blue-grey-darken-4 page-title">
+      <span class="font-weight-bold page-title">
         {{ routes.meta.title }}
       </span>
     </template>
 
     <template #append>
-      <div class="d-flex align-center ga-1 mr-2">
-        <InfoUser />
+      <div class="d-flex align-center justify-center ga-7">
+        <div class="d-flex align-center ga-2 mr-2">
+          <InfoUser />
+        </div>
       </div>
     </template>
   </v-app-bar>

@@ -131,7 +131,7 @@
                             @click="changeYear(-1)"
                         />
 
-                        <span class="text-subtitle-1 font-weight-bold text-blue-grey-darken-4">
+                        <span class="text-subtitle-1 font-weight-bold">
                             {{ currentYear }}
                         </span>
 

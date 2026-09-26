@@ -29,7 +29,7 @@
 
   const modelValue = defineModel<boolean>()
 
-   const  { mutate } = useMutation({
+   const  { mutate, isPending } = useMutation({
 
     mutationFn: (payload: TDeleteTransferPayload) => deleteTransferById(payload.transfer_id!, payload),
 
@@ -107,13 +107,13 @@
             <v-card-text class="text-display-large pa-5">
               <div class="info">
                   <div>
-                      <p class="font-weight-bold text-blue-grey-darken-4">Descrição</p>
-                      <p style="color: rgba(0, 0, 0, 0.7);">{{ props.draft?.description_transaction }}</p>
+                      <p class="font-weight-bold text-blue-grey-darken">Descrição</p>
+                      <p >{{ props.draft?.description_transaction }}</p>
                   </div>
 
                   <div>
-                      <p class="font-weight-bold text-blue-grey-darken-4">Valor</p>
-                      <p style="color: rgba(0, 0, 0, 0.7);  text-align: center;">{{ formatCurrency(props.draft?.value_transaction ?? 0) }}</p>
+                      <p class="font-weight-bold text-blue-grey-darken">Valor</p>
+                      <p style="text-align: center;">{{ formatCurrency(props.draft?.value_transaction ?? 0) }}</p>
                   </div>
               </div> 
             </v-card-text>
@@ -137,6 +137,7 @@
                   class="text-none"
                   rounded="lg"
                   @click="submitForm"
+                  :loading="isPending"
               ></v-btn>
               </v-card-actions>
             
@@ -160,7 +161,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 120px;
+  min-width: 180px;
   font-size: 1rem;
 }
 

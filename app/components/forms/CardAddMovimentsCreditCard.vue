@@ -449,7 +449,7 @@
                 :items="filterCategorias"
                 item-title="name_identifier"
                 item-value="id"
-                variant="solo-filled""
+                variant="solo-filled"
                 label="Categoria*"
                 persistent-hint
                 :rules="selectRules"
@@ -510,7 +510,7 @@
                 :items="creditCardOnlyActive"
                 item-title="name_identifier"
                 item-value="id"
-                variant="solo-filled""
+                variant="solo-filled"
                 label="Cartão de crédito*"
                 persistent-hint
                 :rules="selectRules"

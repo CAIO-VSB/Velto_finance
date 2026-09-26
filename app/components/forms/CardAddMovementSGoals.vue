@@ -191,7 +191,6 @@
                 persistent-hint
                 autocomplete="off"
                 prepend-inner-icon="mdi-bank"
-                :loading="isPendingAccounts"
                 >
 
                   <template v-slot:selection="{item}">
@@ -230,7 +229,6 @@
                 persistent-hint
                 autocomplete="off"
                 prepend-inner-icon="mdi-bank"
-                :loading="isPendingGoals"
                 >
 
                   <template v-slot:selection="{item}">

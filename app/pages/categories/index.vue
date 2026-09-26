@@ -233,7 +233,7 @@
                   elevation="2"
               >
                   <v-card-item class="pa-4 pb-2">
-                      <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+                      <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken">
                           Filtros
                       </v-card-title>
 
@@ -302,7 +302,7 @@
                   elevation="2"
               >
                   <v-card-item class="pa-4 pb-2">
-                      <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+                      <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken">
                           Categorias
                       </v-card-title>
 
@@ -367,7 +367,7 @@
                                           <v-btn
                                             v-bind="props"
                                             icon="mdi-dots-vertical"
-                                            variant="text"
+                                            variant="plain"
                                             :loading="isPending"
                                           >
                                           </v-btn>

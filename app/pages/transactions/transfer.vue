@@ -36,6 +36,7 @@
     const modalAddTransfer = ref(false)
     const modalEditTransfer = ref(false)
     const cardDeleteTransfer = ref(false)
+    const teste = ref(true)
     const labelOptions = ref({
         colorButton: "",
         textButton: "",
@@ -389,6 +390,7 @@
                 :items="data"
                 :search="search"
                 mobile-breakpoint="md"
+                :loading="isPending"
             >
                 <template #item.account_origin_name="{ item }">
                     <div class="d-flex align-center ga-2">
@@ -451,15 +453,6 @@
                 </template>
             </v-data-table>
         </v-card>
-
-        <template v-else>
-            <v-skeleton-loader
-                v-for="n in 12"
-                :key="n"
-                type="list-item-avatar"
-                class="mb-2"
-            />
-        </template>
     </v-container>
 </template>
 

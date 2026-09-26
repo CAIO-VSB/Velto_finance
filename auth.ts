@@ -1,9 +1,9 @@
 import { betterAuth } from "better-auth"
 import { sendUserEmail } from "~~/server/api/auth/send-verification-email"
 import { sendForgotPassword } from "~~/server/api/auth/send-reset-password"
+import { sendExistingUserSignUpAlert } from "~~/server/api/auth/send-existing-email"
 import { Pool } from "pg"
 import { sendChangeEmail } from "~~/server/api/auth/send-change-email-confirmation"
-import client from "~/utils/db" 
 
 export const auth = betterAuth({
 
@@ -23,6 +23,10 @@ export const auth = betterAuth({
         
         sendResetPassword: async ({user, url}) => {
             void sendForgotPassword(user, url)
+        },
+
+        onExistingUserSignUp: async ({user}, request) => {
+            void sendExistingUserSignUpAlert(user)
         }
     },
 

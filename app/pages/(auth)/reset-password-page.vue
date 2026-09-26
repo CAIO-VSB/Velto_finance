@@ -162,7 +162,7 @@
                 Redefinir senha
               </h2>
 
-              <p class="text-body-1 text-medium-emphasis mb-0">
+              <p class="text-body-1 text-medium-emphasis mb-0 bg-white">
                 Crie uma nova senha segura para acessar sua conta.
               </p>
             </header>
@@ -259,7 +259,7 @@
 
               <!-- RODAPÉ -->
               <p
-                class="text-center text-body-2 text-medium-emphasis ma-0"
+                class="text-center text-body-2 text-medium-emphasis ma-0 bg-white"
               >
                 Lembrou sua senha?
 

@@ -175,7 +175,7 @@
       <v-dialog v-model="modelValue" max-width="600">
         <v-card rounded="lg" elevation="6">
           <v-card-item class="pa-4 pb-2">
-            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken">
               Pagamento total
             </v-card-title>
 
@@ -195,17 +195,17 @@
 
             <div class="info w-100">
                   <div class="d-flex ga-2 justify-space-between">
-                      <p style="color: rgba(0, 0, 0, 0.70);">Cartão:</p>
+                      <p >Cartão:</p>
                       <v-chip><p class="font-weight-semibold">{{ props.draft.name_identifier }}</p></v-chip>
                   </div>
 
                   <div class="d-flex ga-2 justify-space-between">
-                      <p style="color: rgba(0, 0, 0, 0.70);;">Fatura:</p>
+                      <p >Fatura:</p>
                       <v-chip><p class="font-weight-semibold">{{sumary?.vencimento}}</p></v-chip>
                   </div>
 
                   <div class="d-flex ga-6 justify-space-between">
-                      <p style="color: rgba(0, 0, 0, 0.70);">Valor total:</p>
+                      <p >Valor total:</p>
                       <v-chip color="red"><p class="font-weight-semibold">{{ formatCurrency(props.totalInvoice)}}</p></v-chip>
                   </div>
               </div> 

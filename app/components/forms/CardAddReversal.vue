@@ -147,7 +147,6 @@
 
                             <v-select
                                 autocomplete="off"
-                                :loading="isPending"
                                 v-model="props.draft.credit_card_id"
                                 v-model:menu="menuCreditCard"
                                 :items="creditCardOnlyActive"

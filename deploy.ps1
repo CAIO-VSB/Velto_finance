@@ -1,9 +1,14 @@
-$imagem = "caiodev2002/velto-finance:1.0.9"
+$appImage = "caiodev2002/velto-finance:1.6.0"
+$migrateImage = "caiodev2002/velto-finance-migrate:1.6.0"
 
-Write-Host "Buildando imagem..."
-docker build -t $imagem .
+Write-Host "Gerando imagem da aplicação..."
+docker build --target runner -t $appImage .
 
-Write-Host "Enviando pro Docker Hub..."
-docker push $imagem
+Write-Host "Gerando imagem de migrations..."
+docker build --target migrator -t $migrateImage .
 
-Write-Host "Pronto! Agora roda o update.sh no servidor."
+Write-Host "Enviando imagens para o Docker Hub..."
+docker push $appImage
+docker push $migrateImage
+
+Write-Host "Pronto. Execute update.sh no servidor."

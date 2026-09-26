@@ -84,7 +84,7 @@
   >
     <v-card rounded="lg" elevation="8">
       <v-card-item class="pa-4 pb-2">
-        <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+        <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken">
           Alterar e-mail de acesso
         </v-card-title>
 

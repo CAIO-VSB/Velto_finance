@@ -27,8 +27,6 @@ export default defineNuxtPlugin((app) => {
                 finance: {
                     dark: false,
                     colors: {
-                        backgroundPrimary: '#f6f7fb',
-                        surface: '#ffffff',
                         secondary: '#f2f2f2',
                         textPrimary: '#2563EB',
                         textSecundary: '#757575',

@@ -154,7 +154,7 @@ export const useAuthStore = defineStore('auth', () => {
                 },
 
                 onSuccess() {
-                    notifySuccess("E-mail enviado", "Enviamos um e-mail de verificação para sua caixa de entrada. Caso não o encontre, verifique a pasta de spam.", 9000)
+                    notifySuccess("Solicitação recebida", "Se este e-mail estiver disponível para cadastro, você receberá as próximas instruções na sua caixa de entrada", 9000)
                 }
             })
 

@@ -253,7 +253,7 @@
                   @click="handleWidthGoogle"
                 >
                   <template #prepend>
-                    <v-avatar :image="logoGoogle" size="20" />
+                    <v-avatar color="white" :image="logoGoogle" size="20" />
                   </template>
 
                   Entrar com Google
@@ -271,14 +271,14 @@
                   @click="handleWidthDiscord"
                 >
                   <template #prepend>
-                    <v-avatar :image="logoDiscord" size="22" />
+                    <v-avatar color="white" :image="logoDiscord" size="22" />
                   </template>
 
                   Entrar com Discord
                 </v-btn>
               </div>
 
-              <p class="text-center text-body-2 text-medium-emphasis ma-0">
+              <p class="text-center bg-white text-body-2 text-medium-emphasis ma-0">
                 Ainda não tem uma conta?
                 <NuxtLink
                   to="/register-page"

@@ -95,24 +95,24 @@
             <v-card-text class="text-display-large pa-5">
               <div class="info">
                   <div>
-                      <p style="color: rgba(0, 0, 0, 0.7);;">Descrição</p>
-                      <p style="color: rgba(0, 0, 0, 0.5);">{{ props.draft?.description_credit }}</p>
+                      <p >Descrição</p>
+                      <p >{{ props.draft?.description_credit }}</p>
                   </div>
 
                   <div>
-                      <p style="color: rgba(0, 0, 0, 0.7);">Valor</p>
-                      <p style="color: rgba(0, 0, 0, 0.5);  text-align: center;">{{ formatCurrency(props.draft?.value_transaction ?? 0.00) }}</p>
+                      <p >Valor</p>
+                      <p style="text-align: center;">{{ formatCurrency(props.draft?.value_transaction ?? 0.00) }}</p>
                   </div>
 
                   <div>
-                      <p style="color: rgba(0, 0, 0, 0.7);">Data da compra</p>
-                      <p style="color: rgba(0, 0, 0, 0.5);  text-align: center;">{{ dateFormated }}</p>
+                      <p>Data da compra</p>
+                      <p style="text-align: center;">{{ dateFormated }}</p>
                   </div>
               </div> 
 
               <div class="info-alert">
                 <div>
-                    <p style="color: rgba(0, 0, 0, 0.70); margin-top: 30px;" class="font-weight-bold">Atenção! Esta é uma {{  props.draft?.type_recurrence }}. O que você deseja excluir?</p>
+                    <p style="margin-top: 30px;" class="font-weight-bold">Atenção! Esta é uma {{  props.draft?.type_recurrence }}. O que você deseja excluir?</p>
                 </div>
                 <v-radio-group v-model="editScope" hide-details class="mt-2">
                     <v-radio color="primary" label="Somente esta" value="somente_esta"></v-radio>

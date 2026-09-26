@@ -35,6 +35,7 @@
 
         onSuccess: () => {
             invalidate(QUERY_KEYS.goals.all)
+            invalidate(QUERY_KEYS.goals.balance_for_economy)
             notifySuccess("Sucesso", "Operação realizada com sucesso", 6000)
             modelValue.value = false
         },

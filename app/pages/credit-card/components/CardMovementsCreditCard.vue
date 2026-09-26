@@ -143,7 +143,7 @@ import type { TCreditCard } from '~~/types/credit_card/TCredit-card';
         class="overflow-hidden"
     >
         <v-card-item class="pa-5 pb-0">
-            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken">
                 Lançamentos
             </v-card-title>
 

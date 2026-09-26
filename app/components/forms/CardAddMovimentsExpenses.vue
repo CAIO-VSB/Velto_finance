@@ -321,7 +321,7 @@
       <v-dialog v-model="modelValue" max-width="700">
         <v-card  rounded="lg" elevation="8">
             <v-card-item class="pa-4 pb-2">
-            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken">
               Nova despesa
             </v-card-title>
 
@@ -482,13 +482,7 @@
                 <v-col
                 dens cols="12" md="12" sm="12"
                 >
-                <v-text-field prepend-inner-icon="mdi-note-text" v-model="movementsForm.observation" :counter="100" maxlength="100" autocomplete="off" label="Observação" variant="solo-filled""></v-text-field>
-                </v-col>
-
-                <v-col
-                dens cols="12" md="12" sm="12"
-                >
-                <v-file-input prepend-inner-icon="mdi-paperclip" prepend-icon=""  clearable label="Anexar comprovante" variant="solo-filled""></v-file-input>
+                <v-text-field prepend-inner-icon="mdi-note-text" v-model="movementsForm.observation" :counter="100" maxlength="100" autocomplete="off" label="Observação" variant="solo-filled"></v-text-field>
                 </v-col>
 
                 <v-col cols="12">
@@ -586,7 +580,6 @@
                     ></v-select>
                   </v-col>
 
-                
               </v-row>
             <small class="text-caption text-medium-emphasis">* Indica campos obrigatórios</small>
           </v-card-text>
@@ -605,7 +598,7 @@
              <v-spacer />
             <v-btn
               class="text-none"
-              color="error"
+              color="red"
               text="Salvar e criar nova"
               variant="outlined"
               :loading="isPending"
@@ -615,7 +608,7 @@
 
             <v-btn
               class="text-none"
-              color="error"
+              color="red"
               text="Salvar"
               variant="flat"
               rounded="lg"

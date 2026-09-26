@@ -249,6 +249,7 @@
     <v-container
       fluid
       class="pa-4 pa-md-6"
+      v-else
     >
       <div>
         <div class="d-flex justify-end ga-2 mb-6" >
@@ -308,123 +309,163 @@
         </div>
 
         <div class="main-cards" v-else>
-                <v-card
-                  v-for="value in onlyGoalsActive"
-                  :key="value.id"
-                  height="auto"
-                  rounded="xl"
-                  elevation="2"
-                  :loading="isPendingGoals"
+          <v-card
+            v-for="value in onlyGoalsActive"
+            :key="value.id"
+            rounded="xl"
+            elevation="2"
+            :loading="isPendingGoals"
+          >
+            <v-card-item class="pa-4 pb-2">
+              <template #prepend>
+                <v-avatar
+                  color="primary"
+                  variant="tonal"
+                  rounded="lg"
+                  size="42"
+                  class="mr-3"
                 >
-                    <v-card-item class="pa-4 pb-0">
-                        <v-card-title style="font-size: var(--text-base);" class="font-weight-bold">
-                          {{ value.name_identifier }}
-                        </v-card-title>
+                  <v-icon icon="mdi-target" />
+                </v-avatar>
+              </template>
 
-                        <template #append>
-                            <v-menu
-                              transition="scale-transition"
-                            >
-                                <template #activator="{ props }">
-                                  <v-btn
-                                    v-bind="props"
-                                    icon="mdi-dots-vertical"
-                                    variant="text"
-                                  />
-                                </template>
+              <v-card-title
+                style="font-size: var(--text-base);"
+                class="font-weight-bold"
+              >
+                {{ value.name_identifier }}
+              </v-card-title>
 
-                                <v-list
-                                  density="comfortable"
-                                  class="pa-2"
-                                >
-                                    <v-list-item
-                                        v-for="(action, index) in getOptionsGoals()"
-                                        :key="index"
-                                        :value="index"
-                                        :prepend-icon="action.icon"
-                                        rounded="lg"
-                                        @click="getOptionClick(action.value, value)"
-                                    >
-                                        <v-list-item-title>
-                                          {{ action.title }}
-                                        </v-list-item-title>
-                                    </v-list-item>
-                                </v-list>
-                            </v-menu>
-                        </template>
-                    </v-card-item>
+              <v-card-subtitle class="mt-1">
+                Acompanhe o avanço da sua meta
+              </v-card-subtitle>
 
-                    <div class="d-flex align-center justify-center">
-                        <v-progress-circular
-                          :model-value="getSummaryForGoals(value.id ?? 0).percentual"
-                          :size="250"
-                          :width="20"
-                          bg-color="surface-light"
-                          class="ma-3"
-                          color="primary"
-                          reveal
-                          rounded
-                        >
-                          <div class="d-flex align-baseline">
-                            <span style="font-size: var(--text-lg);" class="font-weight-bold">{{ getSummaryForGoals(value.id ?? 0).percentual }}</span>
-                            <span style="font-size: var(--text-lg);" class="text-caption text-medium-emphasis">%</span>
-                          </div>
-                        </v-progress-circular>
+              <template #append>
+                <v-menu transition="scale-transition">
+                  <template #activator="{ props }">
+                    <v-btn
+                      v-bind="props"
+                      icon="mdi-dots-vertical"
+                      variant="text"
+                    />
+                  </template>
+
+                  <v-list density="comfortable" class="pa-2">
+                    <v-list-item
+                      v-for="(action, index) in getOptionsGoals()"
+                      :key="index"
+                      :value="index"
+                      :prepend-icon="action.icon"
+                      rounded="lg"
+                      @click="getOptionClick(action.value, value)"
+                    >
+                      <v-list-item-title>
+                        {{ action.title }}
+                      </v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+              </template>
+            </v-card-item>
+
+            <v-divider />
+
+            <div class="d-flex align-center justify-center py-5">
+              <v-progress-circular
+                :model-value="getSummaryForGoals(value.id ?? 0).percentual"
+                :size="210"
+                :width="16"
+                bg-color="surface-light"
+                color="primary"
+                reveal
+              >
+                <div class="text-center">
+                  <div
+                    style="font-size: var(--text-lg);"
+                    class="font-weight-bold"
+                  >
+                    {{ getSummaryForGoals(value.id ?? 0).percentual }}%
                   </div>
 
-                  <div class="pa-2">
-                    <v-sheet border rounded="lg" class="pa-4 mb-3">
-                      <div class="d-flex jutify-center align-center mb-3 text-body-2 text-medium-emphasis">                
-                        Objetivo: 
-                        <div class="w-100 d-flex justify-end text-body-2 font-weight-bold text-blue-grey-darken-4">
-                          <v-chip color="primary">{{ formatCurrency(value.goal_value ?? 0.00) }}</v-chip>
-                        </div>
-                      </div>
-                      <v-divider></v-divider>
-                      <div class="d-flex jutify-center align-center mt-3 mb-3 text-no-wrap text-body-2 text-medium-emphasis">                
-                        Data de início: 
-                        <div class="w-100 d-flex justify-end text-body-2 font-weight-bold text-blue-grey-darken-4">
-                          {{ value.start_date.split("T")[0]?.split("-").reverse().join("/") }}
-                        </div>
-                      </div>
-                      <v-divider></v-divider>
-                      <div class="d-flex jutify-center align-center mb-3 mt-3 text-no-wrap text-body-2 text-medium-emphasis">                
-                        Data de término: 
-                        <div class="w-100 d-flex justify-end text-body-2 font-weight-bold text-blue-grey-darken-4">
-                          {{ value.end_date.split("T")[0]?.split("-").reverse().join("/") }}
-                        </div>
-                      </div>
-                      <v-divider></v-divider>
-                      <div class="d-flex jutify-center align-center mt-3 mb-3 text-no-wrap text-body-2 text-medium-emphasis">                
-                        Aplicação mensal ideal: 
-                        <div class="w-100 d-flex justify-end text-body-2 font-weight-bold text-blue-grey-darken-4">
-                          <v-chip color="primary">{{ formatCurrency(value.suggested_value ?? 0.00) }}</v-chip>
-                        </div>
-                      </div>
-                      <v-divider></v-divider>
-                      <div class="d-flex jutify-center align-center mt-3 mb-3 text-no-wrap text-body-2 text-medium-emphasis">                
-                        Meta alcançada: 
-                        <div class="w-100 d-flex justify-end text-body-2 font-weight-bold text-blue-grey-darken-4">
-                          <v-chip color="green">{{ formatCurrency(getSummaryForGoals(value.id ?? 0).total) }}</v-chip>
-                        </div>
-                      </div>
+                  <div class="text-caption text-medium-emphasis">
+                    concluído
+                  </div>
+                </div>
+              </v-progress-circular>
+            </div>
 
-                      <div class="mt-7 pa-2 d-flex justify-center">
-                        <v-btn
-                        class="text-none"
-                        color="primary"
-                        text="Visualizar extrato"
-                        variant="flat"
-                        rounded="lg"
-                        @click="viewExtract(value)"
-                        ></v-btn>
+            <div class="px-4 pb-4">
+              <v-sheet border rounded="lg" class="pa-4">
+                <div class="d-flex align-center justify-space-between ga-3">
+                  <div class="text-body-2 text-medium-emphasis">
+                    Objetivo
+                  </div>
+
+                  <v-chip color="primary" >
+                    {{ formatCurrency(value.goal_value ?? 0.00) }}
+                  </v-chip>
+                </div>
+
+                <v-divider class="my-3" />
+
+                <div class="d-flex align-center justify-space-between ga-3">
+                  <div class="text-body-2 text-medium-emphasis">
+                    Valor alcançado
+                  </div>
+
+                  <v-chip color="success" >
+                    {{ formatCurrency(getSummaryForGoals(value.id ?? 0).total) }}
+                  </v-chip>
+                </div>
+
+                <v-divider class="my-3" />
+
+                <div class="d-flex align-center justify-space-between ga-3">
+                  <div class="text-body-2 text-medium-emphasis">
+                    Aplicação mensal ideal
+                  </div>
+
+                  <div class="font-weight-bold text-blue-grey-darken">
+                    {{ formatCurrency(value.suggested_value ?? 0.00) }}
+                  </div>
+                </div>
+
+                <v-divider class="my-3" />
+
+                <div class="d-flex align-start justify-space-between ga-3">
+                  <div class="text-body-2 text-medium-emphasis">
+                    Período
+                  </div>
+
+                  <div class="text-subtitle-1 font-weight-bold text-blue-grey-darken text-right">
+                    <div class="text-no-wrap">
+                      {{ value.start_date.split("T")[0]?.split("-").reverse().join("/") }}
                     </div>
-                      
-                    </v-sheet>
+
+                    <div class="text-caption text-medium-emphasis">
+                      até
+                    </div>
+
+                    <div class="text-no-wrap">
+                      {{ value.end_date.split("T")[0]?.split("-").reverse().join("/") }}
+                    </div>
                   </div>
-                  
-                </v-card>
-          </div>
+                </div>
+
+                <v-btn
+                  block
+                  class="text-none mt-5"
+                  color="primary"
+                  prepend-icon="mdi-file-document-outline"
+                  text="Visualizar extrato"
+                  variant="flat"
+                  rounded="lg"
+                  @click="viewExtract(value)"
+                />
+              </v-sheet>
+            </div>
+          </v-card>
+        </div>
         </div>
 
         <div class="fab-wrapper">

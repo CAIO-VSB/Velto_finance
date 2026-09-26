@@ -169,7 +169,7 @@
       rounded="xl"
       >
         <v-card-item class="pa-5 pb-2">
-            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken">
               Novo cartão de crédito
             </v-card-title>
 

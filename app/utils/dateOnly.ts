@@ -1,9 +1,9 @@
-import { formatInTimeZone } from "date-fns-tz"
+import { format } from "date-fns"
 import { datetime } from "rrule"
 
 //Função que converte a data no envio para o bakcend
 export function dateToDateOnly(date: Date): string {
-    return formatInTimeZone(date, "UTC", "yyyy-MM-dd")
+    return format(date, "yyyy-MM-dd")
 }
 
 //Função que converte a data no formato que RRule precisa

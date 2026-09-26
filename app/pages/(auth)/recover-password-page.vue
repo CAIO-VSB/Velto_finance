@@ -138,7 +138,7 @@
                 Recuperar senha
               </h2>
 
-              <p class="text-body-1 text-medium-emphasis mb-0">
+              <p class="text-body-1 text-medium-emphasis mb-0 bg-white">
                 Informe seu e-mail para recuperar sua senha de acesso.
               </p>
             </header>
@@ -192,7 +192,7 @@
               </v-btn>
 
               <p
-                class="text-center text-body-2 text-medium-emphasis ma-0"
+                class="text-center text-body-2 text-medium-emphasis ma-0 bg-white"
               >
                 Lembrou sua senha?
 
