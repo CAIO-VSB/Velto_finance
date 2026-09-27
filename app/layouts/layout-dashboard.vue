@@ -179,30 +179,6 @@
             </template>
           </v-list-item>
         </v-list-group>
-
-        <v-list-subheader
-          v-if="!rail"
-          class="text-uppercase text-caption font-weight-bold px-3 mt-4 mb-1"
-        >
-          Atualizações
-        </v-list-subheader>
-
-        <v-list-item
-          prepend-icon="mdi-update"
-          title="Relatórios"
-          value="relatorios"
-          rounded="lg"
-          to="/news"
-        >
-          <template #title>
-            <div class="d-flex align-center justify-space-between w-100">
-              <span class="size-item-title">
-                Novidades
-              </span>
-            </div>
-          </template>
-        </v-list-item>
-
       </v-list>
 
     <template #append>
@@ -242,7 +218,7 @@
     </div>
 
     <div class="text-caption text-medium-emphasis text-center mt-1">
-      Versão 1.6.2
+      Versão 1.7.1
     </div>
   </div>
 </template>

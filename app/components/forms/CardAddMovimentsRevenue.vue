@@ -537,7 +537,7 @@
 
             <v-col cols="12">
               <v-sheet border rounded="lg" class="pa-4">
-                <div class="text-body-2 font-weight-bold text-blue-grey-darken-3 mb-3">
+                <div class="text-body-2 font-weight-bold text-blue-grey-darken mb-3">
                   Opções da receita
                 </div>
 

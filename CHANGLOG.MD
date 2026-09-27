@@ -8,6 +8,20 @@ Todas as mudanças notáveis deste projeto serão documentadas aqui.
 ## 1.1.0 — funcionalidade nova, sem quebrar o que já existia.
 ## 1.1.1 — correções, ajustes visuais e pequenas melhorias.
 
+## [1.7.1] - 2026-09-27
+
+### Corrigido
+
+- Corrigi um pequeno bug de acesso não autorizado mesmo o usuário tendo um token ativo e válido
+
+
+## [1.7.0] - 2026-09-27
+
+### Adicionado
+
+- Adiciona uma nova opção na tela de login 'lembrar-me' para que o usuário persista o login dentro de 30 dias
+
+
 ## [1.6.2] - 2026-09-26
 
 ### Adicionado

@@ -1,14 +1,28 @@
-$appImage = "caiodev2002/velto-finance:1.6.2"
-$migrateImage = "caiodev2002/velto-finance-migrate:1.6.2"
+$ErrorActionPreference = "Stop"
+
+$appImage = "caiodev2002/velto-finance:1.7.1"
+$migrateImage = "caiodev2002/velto-finance-migrate:1.7.1"
+
+function Invoke-Docker {
+  param([Parameter(ValueFromRemainingArguments = $true)][string[]]$DockerArgs)
+
+  & docker @DockerArgs
+
+  if ($LASTEXITCODE -ne 0) {
+    throw "Falha: docker $($DockerArgs -join ' ')"
+  }
+}
 
 Write-Host "Gerando imagem da aplicação..."
-docker build --target runner -t $appImage .
+Invoke-Docker build --target runner -t $appImage .
 
 Write-Host "Gerando imagem de migrations..."
-docker build --target migrator -t $migrateImage .
+Invoke-Docker build --target migrator -t $migrateImage .
 
-Write-Host "Enviando imagens para o Docker Hub..."
-docker push $appImage
-docker push $migrateImage
+Write-Host "Enviando aplicação..."
+Invoke-Docker push $appImage
 
-Write-Host "Pronto. Execute update.sh no servidor."
+Write-Host "Enviando migrations..."
+Invoke-Docker push $migrateImage
+
+Write-Host "Tudo publicado. Agora rode update.sh no servidor."

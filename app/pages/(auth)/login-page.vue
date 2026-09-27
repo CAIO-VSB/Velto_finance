@@ -19,6 +19,7 @@
   const loginForm = ref<TLoginForm>({
     email: "",
     password: "",
+    rememberMe: false
   });
 
   const authStore = useAuthStore();
@@ -36,7 +37,6 @@
 
       if (formValid) {
         if (resultSchema.success) {
-
           const result = await authStore.login(loginForm.value)
 
           if (result?.success) {
@@ -191,7 +191,6 @@
                   <label class="text-body-2 font-weight-bold" for="login-password">
                     Senha
                   </label>
-
                   <NuxtLink
                     to="/recover-password-page"
                     class="text-primary text-body-2 font-weight-bold"
@@ -217,6 +216,16 @@
                   bg-color="blue-grey-lighten-5"
                   @click:append-inner="showPassword = !showPassword"
                 />
+                <div class="d-flex align-center mt-1">
+                  <v-checkbox
+                    v-model="loginForm.rememberMe"
+                    label="Lembrar-me"
+                    density="compact"
+                    color="primary"
+                    v-tooltip="'Mantenha-se conectado por até 30 dias neste dispositivo'"
+                    hide-details
+                  />
+                </div>
               </div>
 
               <v-btn

@@ -1,7 +1,9 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
 	const { $authClient } = useNuxtApp()
 
-	const publicRoutes = ['/login-page', '/register-page', '/recover-password-page', '/reset-password-page', '/unauthorized']
+	const guestOnlyRoutes = ['/login-page', '/register-page', '/recover-password-page', '/reset-password-page']
+
+	const publicRoutes = ['/unauthorized']
 
 	if (to.path.startsWith('/api/auth')) {
 		return
@@ -14,6 +16,14 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 	const { data: session } = await $authClient.getSession()
 
 	const isAutenticated = !!session?.session.token
+
+	if (isAutenticated && guestOnlyRoutes.includes(to.path)) {
+		return navigateTo('/dashboard')
+	}
+
+	if (guestOnlyRoutes.includes(to.path)) {
+		return
+	}
 
 	if (!isAutenticated) {
 		return navigateTo('/unauthorized')
