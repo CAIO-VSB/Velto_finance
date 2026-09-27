@@ -1,75 +1,27 @@
-# Nuxt Minimal Starter
+# Velto Finance 
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Sistema completo de controle financeiro pessoal, criado para simplificar a gestão do dia a dia financeiro em um único lugar. Com o Velto Finance você acompanha receitas, despesas, cartões de crédito, metas de economia e transferências entre contas, tendo uma visão clara e centralizada da sua saúde financeira.
 
-## Setup
 
-Make sure to install dependencies:
+## ✨ Funcionalidades
 
-```bash
-# npm
-npm install
+- Dashboard inteligente — resumo mensal de receitas, despesas e saldo, com gráficos de evolução patrimonial e despesas por categoria
+- Gestão de cartões de crédito — controle de faturas, parcelamentos, estornos e status de fechamento/vencimento automático
+- Metas financeiras — defina objetivos de economia e acompanhe o progresso em tempo real
+- Transferências entre contas — organize movimentações entre diferentes bancos e carteiras
+- Filtros avançados — busque movimentações por período, categoria, conta ou tipo de transação
+- Autenticação segura — login com e-mail/senha ou via Google e Discord, com opção de "lembrar-me" por até 30 dias
+- Notificações automáticas — alertas de fatura próxima do vencimento direto no seu e-mail
 
-# pnpm
-pnpm install
 
-# yarn
-yarn install
+## 🛠️ Tecnologias
 
-# bun
-bun install
-```
+**Client:** Vue 3 + Vuetify 4 + Nuxt 4 
 
-## Development Server
+**Server:** Nitro (motor do servidor utilizado pelo nuxt) + PostgresSQL
 
-Start the development server on `http://localhost:3000`:
+**Autenticação**: Better-auth (https://better-auth.com/)
 
-```bash
-# npm
-npm run dev
+**Infraestrutura**: Docker + Docker Compose, com pipeline de build muilt-estágio (app + migrations)
 
-# pnpm
-pnpm dev
 
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
