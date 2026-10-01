@@ -1,7 +1,7 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
 	const { $authClient } = useNuxtApp()
 
-	const guestOnlyRoutes = ['/login-page', '/register-page', '/recover-password-page', '/reset-password-page']
+	const guestOnlyRoutes = ['/login-page', '/register-page', '/recover-password-page', '/reset-password-page', '/server-error']
 
 	const publicRoutes = ['/unauthorized']
 
