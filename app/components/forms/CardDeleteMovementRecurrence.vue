@@ -1,9 +1,5 @@
 <script setup lang="ts">
 
-    const props = defineProps<{
-        draft: TMovementsPayload | null
-    }>()
-
     const  emit = defineEmits<{
         success: []
     }>()
@@ -11,6 +7,12 @@
     import { useInvalidate } from "~/composables/useInvalidate"
     import { useHttpRecurrence } from '~/composables/useHttp/useHttpRecurrence'
     import type { TMovementsPayload } from "~~/schemas/movements.schema";
+    import type { TMovements, TMovementsSummary } from "~~/types/movements/TMovements";
+
+    const props = defineProps<{
+        draft: TMovementsSummary | null
+    }>()
+
 
     const { invalidate } = useInvalidate()
     const { deleteMovementsRecurrenceById } = useHttpRecurrence()
@@ -59,7 +61,8 @@
         const raw = structuredClone(toRaw(props.draft))
 
         const payload = {
-            ...raw
+            ...raw,
+            date_transaction: dateToDateOnly(props.draft.date_transaction!)
         }
 
         mutate(payload)
@@ -104,7 +107,7 @@
 
                   <div>
                       <p class="font-weight-bold text-blue-grey-darken">Valor</p>
-                      <p style=" text-align: center;">{{ props.draft?.date_transaction?.split("-").reverse().join("/") }}</p>
+                      <p style=" text-align: center;">{{ props.draft?.date_transaction?.toLocaleDateString() }}</p>
                   </div>
               </div> 
 

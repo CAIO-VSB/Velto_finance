@@ -23,7 +23,7 @@ import type { TCreditCard } from '~~/types/credit_card/TCredit-card';
   const modalEditRecurrence = ref(false)
   const modalDeleteRecurrence = ref(false)
   const editDraft = ref<TMovementCreditCard | null>(null)
-  const deleteDraft = ref<TMovementCreditCardPayload | null>(null)
+  const deleteDraft = ref<TMovementCreditCard | null>(null)
   const shoppingActive  = ref<boolean | null>(true)
 
   const statusMovementConfig: Record<string, {color: string, icon: string, text?: string}> = {
@@ -79,6 +79,12 @@ import type { TCreditCard } from '~~/types/credit_card/TCredit-card';
     shoppingActive.value = option === 'mostrar' ? false : true
   }
 
+    function handleOpenDeleteMovements(movements: TMovementCreditCard) {
+        //Usamos structuredClone + toRaw para evitar mutar o objeto reativo do Vue
+        const rawMovements =  structuredClone(toRaw(movements))
+        deleteDraft.value = parseMovementCreditCardToEdit(movements)
+    }
+
   function handleOptionClick(option: TOptionAction, data: TMovementCreditCard) {
 
     const raw = structuredClone(toRaw(data))
@@ -101,7 +107,7 @@ import type { TCreditCard } from '~~/types/credit_card/TCredit-card';
     if (option.value === 'delete' && (data.type_recurrence === 'fixa' || data.type_recurrence === 'parcelada')) {
       console.log("Caiu aqui ?")
       modalDeleteRecurrence.value = true
-      deleteDraft.value = payloadDeleteDraft
+      handleOpenDeleteMovements(data)
       return
     }
 
@@ -114,7 +120,7 @@ import type { TCreditCard } from '~~/types/credit_card/TCredit-card';
 
     if (option.value === 'delete') {
       modalDeleteMovement.value = true
-      deleteDraft.value = payloadDeleteDraft
+      handleOpenDeleteMovements(data)
       return
     }
 

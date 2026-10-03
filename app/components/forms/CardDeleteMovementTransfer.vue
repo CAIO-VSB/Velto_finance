@@ -8,7 +8,7 @@
     draft: TTransferMovementsPayload | null
   }>()
 
-  type TTransferMovementsPayload = TMovementsPayload & {
+  type TTransferMovementsPayload = TMovements & {
     account_origin?: number | null,
     account_destination?: number | null,
     transfer_id?: number | null
@@ -22,6 +22,8 @@
   import { useInvalidate } from "~/composables/useInvalidate"
   import { useHttpTransfer } from '~/composables/useHttp/useHttpTransfer'
   import type { TMovementsPayload } from "~~/schemas/movements.schema";
+  import type { TMovements } from "~~/types/movements/TMovements";
+
 
   const { invalidate } = useInvalidate()
   const { deleteTransferById } = useHttpTransfer()
@@ -68,7 +70,7 @@
     const transferPayload: TDeleteTransferPayload = {
       ...raw,
       value_transfer: raw.value_transaction,
-      date_transfer: raw.date_transaction,
+      date_transfer: dateToDateOnly(raw.date_transaction),
       is_deleted: true
     }
 

@@ -95,7 +95,7 @@
 
     const payload = {
       ...raw,
-      date_transaction: dateToDateOnly(props.draft.date_transaction ?? new Date())
+      date_transaction: dateToDateOnly(props.draft.date_transaction!)
     }
 
 

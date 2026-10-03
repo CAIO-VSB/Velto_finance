@@ -1,9 +1,5 @@
 <script setup lang="ts">
 
-    const props = defineProps<{
-        draft: TMovementCreditCardPayload | null
-    }>()
-
     const  emit = defineEmits<{
         success: []
     }>()
@@ -11,6 +7,12 @@
     import { useInvalidate } from "~/composables/useInvalidate"
     import { useHttpRecurrence } from '~/composables/useHttp/useHttpRecurrence'
     import type { TMovementCreditCardPayload } from "~~/schemas/movementCreditCard.schema";
+    import type { TMovementCreditCard } from "~~/types/credit_card/TMovementCreditCard";
+
+    const props = defineProps<{
+        draft: TMovementCreditCard | null
+    }>()
+
 
     const { invalidate } = useInvalidate()
     const { patchMovementsCreditCardRecurrenceById } = useHttpRecurrence()
@@ -20,9 +22,6 @@
     const editScope = ref("somente_esta")
     const dateFormated = ref("")
 
-    watch(() => props.draft, (val) => {
-        dateFormated.value = val?.purchase_date.split("-").reverse().join("/") ?? "Data inválida"
-    })
 
     const  { mutate } = useMutation({
 
@@ -61,6 +60,7 @@
 
         const payload = {
             ...raw,
+            purchase_date: dateToDateOnly(props.draft.purchase_date!),
             status_movement: "deletada"
         }
 
@@ -95,18 +95,18 @@
             <v-card-text class="text-display-large pa-5">
               <div class="info">
                   <div>
-                      <p >Descrição</p>
+                      <p class="font-weight-bold">Descrição</p>
                       <p >{{ props.draft?.description_credit }}</p>
                   </div>
 
                   <div>
-                      <p >Valor</p>
+                      <p class="font-weight-bold">Valor</p>
                       <p style="text-align: center;">{{ formatCurrency(props.draft?.value_transaction ?? 0.00) }}</p>
                   </div>
 
                   <div>
-                      <p>Data da compra</p>
-                      <p style="text-align: center;">{{ dateFormated }}</p>
+                      <p class="font-weight-bold">Data da compra</p>
+                      <p style="text-align: center;">{{ formatDate(props.draft?.purchase_date)}}</p>
                   </div>
               </div> 
 

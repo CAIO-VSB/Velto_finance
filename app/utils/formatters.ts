@@ -38,3 +38,11 @@
             date_movement: parseDateOnlyToLocalDate(String(goals.date_movement))
         }
     }
+
+    export function parseMovementSettleMovements(movements: TMovements): TMovements {
+        return {
+            ...movements,
+            value_transaction: Number(movements.value_transaction ?? 0),
+            date_transaction:  parseDateOnlyToLocalDate(String(movements.date_transaction))
+        }
+    }

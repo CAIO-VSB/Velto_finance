@@ -1,13 +1,4 @@
 <script setup lang="ts">
-
-    const props = defineProps<{
-    colorBotton: string,
-    titleBotton: string,
-    title: string,
-    text: string,
-    draft: TMovementCreditCardPayload | null
-    }>()
-
     const  emit = defineEmits<{
         success: []
     }>()
@@ -15,6 +6,16 @@
     import { useInvalidate } from "~/composables/useInvalidate"
     import { useHttpMovementCreditCard } from '~/composables/useHttp/useHttpMovementCreditCard'
     import type { TMovementCreditCardPayload } from "~~/schemas/movementCreditCard.schema"; 
+    import type { TMovementCreditCard } from "~~/types/credit_card/TMovementCreditCard"; 
+
+    const props = defineProps<{
+        colorBotton: string,
+        titleBotton: string,
+        title: string,
+        text: string,
+        draft: TMovementCreditCard | null
+    }>()
+
 
     const { invalidate } = useInvalidate()
     const { patchMovementCardById } = useHttpMovementCreditCard()
@@ -23,9 +24,6 @@
     const modelValue = defineModel<boolean>()
     const dateFormated = ref("")
 
-    watch(() => props.draft, (val) => {
-        dateFormated.value = val?.purchase_date.split("-").reverse().join("/") ?? "Data inválida"
-    })
 
     const { mutate, isPending:isPendingMovements  } = useMutation({
 
@@ -58,6 +56,7 @@
 
         const payload = {
             ...raw,
+            purchase_date: dateToDateOnly(props.draft.purchase_date!),
             status_movement: "deletada"
         }
 
@@ -105,7 +104,7 @@
                   </div>
                   <div>
                       <p class="font-weight-bold text-blue-grey-darken">Data da compra</p>
-                      <p style="text-align: center;">{{ dateFormated }}</p>
+                      <p style="text-align: center;">{{ formatDate(props.draft?.purchase_date) }}</p>
                   </div>
               </div> 
             </v-card-text>

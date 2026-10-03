@@ -8,6 +8,12 @@ Todas as mudanças notáveis deste projeto serão documentadas aqui.
 ## 1.1.0 — funcionalidade nova, sem quebrar o que já existia.
 ## 1.1.1 — correções, ajustes visuais e pequenas melhorias.
 
+## [1.7.4] - 2026-10-03
+
+### Corrigido
+
+- Corrigi conversão da data (Date -> string) nos forms de envio da aplicação
+
 ## [1.7.3] - 2026-10-03
 
 ### Corrigido

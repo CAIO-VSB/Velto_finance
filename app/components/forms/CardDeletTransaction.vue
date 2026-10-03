@@ -5,7 +5,7 @@
     titleBotton: string,
     title: string,
     text: string,
-    draft: TMovementsPayload | null
+    draft: TMovements | null
   }>()
 
   const  emit = defineEmits<{
@@ -45,6 +45,7 @@
 
 })
 
+
 async function submitForm() {
 
   if(!props.draft) {
@@ -55,7 +56,8 @@ async function submitForm() {
   const raw = structuredClone(toRaw(props.draft))
 
   const payload = {
-    ...raw
+    ...raw,
+    date_transaction: dateToDateOnly(props.draft.date_transaction!)
   }
 
   if (props.draft.type_transaction === "receita") {
@@ -113,7 +115,7 @@ async function submitForm() {
 
                   <div>
                       <p class="font-weight-bold text-blue-grey-darken">Data</p>
-                      <p style=" text-align: center;">{{ props.draft?.date_transaction?.split("-").reverse().join("/")}}</p>
+                      <p style=" text-align: center;">{{ props.draft?.date_transaction?.toLocaleDateString()}}</p>
                   </div>
               </div> 
             </v-card-text>

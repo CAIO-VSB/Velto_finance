@@ -9,7 +9,7 @@
     import { useHttpMovements } from '~/composables/useHttp/useHttpMovements'
     import { useHttpTransfer } from '~/composables/useHttp/useHttpTransfer'
     import { useHttpMovementCreditCard } from "~/composables/useHttp/useHttpMovementCreditCard"
-    import type { TMovementsSummary, TMovementsWithTransfer } from '~~/types/movements/TMovements'
+    import type { TMovements, TMovementsSummary, TMovementsWithTransfer } from '~~/types/movements/TMovements'
     import type { TOptionAction } from '~~/types/option_action/TOptionAction'
     import type { TMovementsByFilter } from "~~/types/movements/TMovementsByFilter"
     import type { TPeriod } from "~~/types/period/TPeriod"
@@ -70,7 +70,7 @@
         text: ""
     })
     const editDraft = ref<TMovementsSummary | null>(null)
-    const confirmDraft = ref<TMovementsPayload | null>(null)
+    const confirmDraft = ref<TMovements | null>(null)
     const editDraftTransfer = ref<TTransfer | null>(null)
     const period = ref({
         month: new Date().getMonth(),
@@ -303,6 +303,12 @@
         modelEditRecurrenceRevenue.value = true
     }
 
+    function handleOpenModalSettleMovements(movements: TMovementsSummary) {
+        //Usamos structuredClone + toRaw para evitar mutar o objeto reativo do Vue
+        const rawMovements =  structuredClone(toRaw(movements))
+        confirmDraft.value = parseMovementToEdit(rawMovements)
+    }
+
     function handleOpenModalUploadImage(movement: TMovementsSummary) {
         modelUploadImage.value = true
         movementBeingAttached.value = movement
@@ -407,7 +413,6 @@
 
         const dateFormated = dateToDateOnly(raw.date_transaction)
         
-
         const payload = {
             ...raw,
             value_transaction: Number(raw.value_transaction ?? 0),
@@ -416,7 +421,7 @@
         }
 
         if (option.value === "delete" && (data.type_transaction === "despesa" || data.type_transaction === "receita") && (data.type_recurrence === "fixa" || data.type_recurrence === "parcelada")) {
-            confirmDraft.value = payload
+            handleOpenModalSettleMovements(data)
             cardDeletTransactionRecurrence.value = true
             return
         }
@@ -428,7 +433,7 @@
         const config = useOptions[option.value]?.[data.type_transaction]
         
         if (config) {
-            confirmDraft.value = payload
+            handleOpenModalSettleMovements(data)
             labelOptions.value = {
                 colorButton: config.colorButton,
                 textButton: config.textButton,
