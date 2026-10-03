@@ -8,7 +8,7 @@ Todas as mudanças notáveis deste projeto serão documentadas aqui.
 ## 1.1.0 — funcionalidade nova, sem quebrar o que já existia.
 ## 1.1.1 — correções, ajustes visuais e pequenas melhorias.
 
-## [1.7.3] - 2026-09-27
+## [1.7.3] - 2026-10-03
 
 ### Corrigido
 
