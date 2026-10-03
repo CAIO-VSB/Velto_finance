@@ -4,8 +4,6 @@ const { notifyError, notifyInfo } = useNotify()
 
 export function handleErrorApplication(statusCode: number | undefined) {
 
-    console.log("Chegando aqui no handle", statusCode)
-
     switch (statusCode) {
         case 400:
             notifyInfo("Solicitação inválida", "Verifique os dados informados e tente novamente", 6000)
@@ -41,7 +39,6 @@ export function handleErrorApplication(statusCode: number | undefined) {
             notifyError("Serviço indisponível", "O serviço está temporariamente indisponível. Tente novamente mais tarde", 6000)
             break;
         default:
-        console.log("Nenhum case bateu, statusCode era:", statusCode)
         notifyError("Erro", "Erro não catalogado", 6000)
     }
    

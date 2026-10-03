@@ -5,7 +5,7 @@
     titleBotton: string,
     title: string,
     text: string,
-    draft: TMovementsPayload | null
+    draft: TMovements | null
   }>()
 
   const  emit = defineEmits<{
@@ -95,7 +95,9 @@
 
     const payload = {
       ...raw,
+      date_transaction: dateToDateOnly(props.draft.date_transaction ?? new Date())
     }
+
 
     if (props.draft.type_transaction === "receita") {
       payload.status_transaction = "recebido"

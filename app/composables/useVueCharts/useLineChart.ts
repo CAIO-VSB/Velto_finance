@@ -14,14 +14,16 @@ export function useLineChart(data: MaybeRefOrGetter<LineDatum[]>) {
 
         return {
             color: colors,
+            textStyle: textStyle.value,
             tooltip: {trigger: 'axis', valueFormatter: (value) => formatCurrency(Number(value))},
             grid: {left: 0, right: 50, top: 30 },
             dataset: {
                 source: toValue(data)
             },
-            yAxis: {type: 'value'},
+            yAxis: {type: 'value', axisLabel: { color: textStyle.value.color}},
             xAxis: {
-                type: 'category'
+                type: 'category',
+                axisLabel: { color: textStyle.value.color}
             },
             series: [
                 {

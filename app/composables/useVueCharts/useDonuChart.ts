@@ -1,5 +1,6 @@
 import type { EChartsOption as ECOption, TooltipComponentFormatterCallbackParams } from "echarts"
 import { useChartTheme } from "./useChartTheme"
+import { useTheme } from 'vuetify'
 
 export type DonutDatum = {
     name: string,
@@ -11,9 +12,14 @@ export function useDonutChart(
     center: MaybeRefOrGetter<[string, string]> = ['50%', '62%'] 
 ) {
     const { colors, textStyle } = useChartTheme()
+    const vuetifyTheme = useTheme()
+    const isDark = computed(() => vuetifyTheme.global.current.value.dark)
 
     const option = computed<ECOption>(() => ({
+        darkMode: isDark.value,
+        backgroundColor: 'transparent',
         color: colors,
+        textStyle: textStyle.value,
         tooltip: {
             trigger: 'item',
             formatter: (params: TooltipComponentFormatterCallbackParams) => {
@@ -24,6 +30,7 @@ export function useDonutChart(
         legend: {
             top: '5%',
             left: 'center',
+            textStyle: { color: textStyle.value.color}
         },
         series: [
             {
@@ -35,19 +42,19 @@ export function useDonutChart(
                 data: toValue(data),
 
                 labelLine: {
-                    show: false
+                    show: false,
                 },
 
                 label: {
                     show: false,
-                    position: 'center'
+                    position: 'center',
                 },
 
                 emphasis: {
                     label: {
                         show: true,
                         fontSize: 20,
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
                     }
                 }
             },

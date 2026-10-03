@@ -1,6 +1,7 @@
 import type  { EChartsOption as ECOption  } from "echarts"
 import { useChartTheme } from "./useChartTheme"
 import type { CallbackDataParams } from "echarts/types/dist/shared"
+import { useTheme } from 'vuetify'
 
 export type BarDatum = {
     name: string | number,
@@ -10,20 +11,29 @@ export type BarDatum = {
 
 export function useBarChart(data: MaybeRefOrGetter<BarDatum[]>) {
     const {colors, textStyle } = useChartTheme()
+    const vuetifyTheme = useTheme()
+    const isDark = computed(() => vuetifyTheme.global.current.value.dark)
 
     const option = computed<ECOption>(() => {
 
         return {
+            darkMode: isDark.value,
+            backgroundColor: 'transparent',
             color: colors,
+            textStyle: textStyle.value,
             tooltip: {trigger: 'axis', valueFormatter: (value) => formatCurrency(Number(value))},
             grid: {left: 0, right: 50, top: 30 },
             dataset: {
                 source: toValue(data)
             },
             xAxis: {
-                type: 'category'
+                type: 'category',
+                axisLabel: { color: textStyle.value.color}
             },
-            yAxis: {type: 'value'},
+            yAxis: {
+                type: 'value',
+                axisLabel: { color: textStyle.value.color}
+            },
             series: [
                 {
                     name: 'Total',

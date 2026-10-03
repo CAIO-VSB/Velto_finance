@@ -1,5 +1,11 @@
-// composables/useChartTheme.ts
+import { useTheme } from 'vuetify'
+
 export function useChartTheme() {
+  const vuetifyTheme = useTheme()
+  const isDark = computed(() => vuetifyTheme.global.current.value.dark)
+
+  const textColor = computed(() => isDark.value ? '#E4E6EB' : '#1A1A1A')
+
   return {
     colors: [
       '#4F7CFF',
@@ -11,6 +17,7 @@ export function useChartTheme() {
       '#FF6B6B',
       '#2BB673',
     ],
-    textStyle: { fontSize: 13, color: '#4b5563' },
+    textStyle: computed(() => ({ fontSize: 13, color: textColor.value })),
+    textColor,
   }
 }
