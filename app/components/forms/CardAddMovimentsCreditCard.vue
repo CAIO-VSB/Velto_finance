@@ -403,7 +403,7 @@
       <v-dialog v-model="modelValue" max-width="750">
         <v-card rounded="lg" elevation="8">
           <v-card-item class="pa-4 pb-2">
-            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+            <v-card-title class="text-h6 font-weight-bold">
               Nova despesa
             </v-card-title>
 
@@ -429,7 +429,7 @@
               <v-col
               cols="12" md="6" sm="12"
               >
-              <v-date-input prepend-inner-icon="mdi-calendar" prepend-icon="" :rules="dateRules" autocomplete="off" name="date" label="Data*" variant="solo-filled"" v-model="movementCreditCardForm.purchase_date"></v-date-input>
+              <v-date-input prepend-inner-icon="mdi-calendar" prepend-icon="" :rules="dateRules" autocomplete="off" name="date" label="Data*" variant="solo-filled" v-model="movementCreditCardForm.purchase_date"></v-date-input>
               </v-col>
               
               <v-col
@@ -586,7 +586,7 @@
                 <v-col cols="12">
 
                   <v-sheet border rounded="lg" class="pa-4 mb-3">
-                  <div class="text-body-2 font-weight-bold text-blue-grey-darken-3 mb-3">
+                  <div class="text-body-2 font-weight-bold text-blue-grey-darken mb-3">
                     Opções da despesa
                   </div>
 

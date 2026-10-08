@@ -8,11 +8,18 @@ Todas as mudanças notáveis deste projeto serão documentadas aqui.
 ## 1.1.0 — funcionalidade nova, sem quebrar o que já existia.
 ## 1.1.1 — correções, ajustes visuais e pequenas melhorias.
 
-## [1.7.4] - 2026-10-03
+
+## [1.7.5] - 2026-10-07
 
 ### Corrigido
 
-- Corrigi conversão da data (Date -> string) nos forms de envio da aplicação
+- Feita uma pequena correção na validação de inputs de descrições, estava validando com 3, o correto seria 1
+
+## [1.7.4] - 2026-10-07
+
+### Corrigido
+
+- Corrigido um pequeno problema referente a fatura, a escolha do usuário nãoe estava levada como prioridade
 
 ## [1.7.3] - 2026-10-03
 

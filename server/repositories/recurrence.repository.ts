@@ -57,6 +57,7 @@ export const recurrenceRepository = {
 
     async createRecorrenceCreditCard(userId: string, data: TRecurrencePayload | null, dataMovementsCreditCard: TMovementCreditCardPayload[] | null) {
 
+
         const conn = await client.connect()
 
         try {
@@ -73,7 +74,7 @@ export const recurrenceRepository = {
 
             if (data?.type_recurrence === "fixa" && dataMovementsCreditCard) {
 
-                for (const movement of dataMovementsCreditCard) {
+               for (const [indice, movement] of dataMovementsCreditCard.entries()) {
 
                     const creditCardResult = await conn.query(
                     `SELECT closing_day
@@ -89,8 +90,10 @@ export const recurrenceRepository = {
                     const closingDayValue = creditCardResult.rows?.[0].closing_day
 
                     const creditCardId = movement.credit_card_id
-                    
-                    const purchaseDateFormated = new Date(movement.purchase_date ?? Date.now())
+                    const baseDate = new Date(movement.invoice_year!, movement.invoice_month! - 1 + indice, 1)
+                    const invoiceMonth = baseDate.getMonth() + 1
+                    const invoiceYear = baseDate.getFullYear()
+                    const purchaseDateOriginal = dataMovementsCreditCard[0]?.purchase_date
 
                     if (closingDayValue === null) {
                         throw new Error(
@@ -98,11 +101,9 @@ export const recurrenceRepository = {
                         )
                     }
 
-                    const resultInvoice = calculateInvoiceMonth(purchaseDateFormated, closingDayValue)
-
                     const existingInvoice = await conn.query(
                         `SELECT id FROM credit_card_invoices WHERE credit_card_id = $1 AND invoice_month = $2 AND invoice_year = $3`,
-                        [creditCardId, resultInvoice.month, resultInvoice.year]
+                        [creditCardId, invoiceMonth, invoiceYear]
                     )
 
                     let invoiceId: number
@@ -110,13 +111,13 @@ export const recurrenceRepository = {
                     if (existingInvoice.rows.length > 0) {
                         invoiceId = existingInvoice.rows[0].id
                     } else {
-                        const closingDate = new Date(resultInvoice.year, resultInvoice.month - 1, closingDayValue ?? 1)
+                        const closingDate = new Date(invoiceYear, invoiceMonth - 1, closingDayValue ?? 1)
 
                         const newInvoice = await conn.query(
                             `INSERT INTO credit_card_invoices(credit_card_id, invoice_month, invoice_year, status_invoice, closing_date, total_value)
                             VALUES($1, $2, $3, $4, $5, $6)
                             RETURNING id`,
-                            [creditCardId, resultInvoice.month, resultInvoice.year, 'parcial', closingDate, 0]
+                            [creditCardId, invoiceMonth, invoiceYear, 'parcial', closingDate, 0]
                         )
                         
                         invoiceId = newInvoice.rows[0].id
@@ -126,7 +127,7 @@ export const recurrenceRepository = {
                         `INSERT INTO credit_card_movements(user_id, credit_card_id, invoice_id, categorie_id, description_credit, value_transaction, purchase_date, installment_number, recurrence_id, status_movement, observation) 
                         VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
                         RETURNING id `,
-                        [userId, movement.credit_card_id, invoiceId, movement.categorie_id, movement.description_credit, movement.value_transaction, movement.purchase_date, null, recurrenceId, movement.status_movement, movement.observation]
+                        [userId, movement.credit_card_id, invoiceId, movement.categorie_id, movement.description_credit, movement.value_transaction, purchaseDateOriginal, null, recurrenceId, movement.status_movement, movement.observation]
                     )
 
 
@@ -152,14 +153,15 @@ export const recurrenceRepository = {
 
                     const closingDayValue = creditCardResult.rows?.[0].closing_day
 
+                    const baseDate = new Date(valor.invoice_year!, valor.invoice_month! - 1 + indice, 1)
+                    const invoiceMonth = baseDate.getMonth() + 1
+                    const invoiceYear = baseDate.getFullYear()
                     const creditCardId = valor.credit_card_id
-                    const purchaseDateFormated = new Date(valor.purchase_date)
-
-                    const resultInvoice = calculateInvoiceMonth(purchaseDateFormated, closingDayValue ?? 0)
+                    const purchaseDateOriginal = dataMovementsCreditCard[0]?.purchase_date
 
                     const existingInvoice = await conn.query(
                         `SELECT id FROM credit_card_invoices WHERE credit_card_id = $1 AND invoice_month = $2 AND invoice_year = $3`,
-                        [creditCardId, resultInvoice.month, resultInvoice.year]
+                        [creditCardId, invoiceMonth, invoiceYear]
                     )
 
                     let invoiceId: number
@@ -167,13 +169,13 @@ export const recurrenceRepository = {
                     if (existingInvoice.rows.length > 0) {
                         invoiceId = existingInvoice.rows[0].id
                     } else {
-                        const closingDate = new Date(resultInvoice.year, resultInvoice.month - 1, closingDayValue ?? 1)
+                        const closingDate = new Date(invoiceYear, invoiceMonth - 1, closingDayValue ?? 1)
 
                         const newInvoice = await conn.query(
                             `INSERT INTO credit_card_invoices(credit_card_id, invoice_month, invoice_year, status_invoice, closing_date, total_value)
                             VALUES($1, $2, $3, $4, $5, $6)
                             RETURNING id`,
-                            [creditCardId, resultInvoice.month, resultInvoice.year, 'parcial', closingDate, 0]
+                            [creditCardId, invoiceMonth, invoiceYear, 'parcial', closingDate, 0]
                         )
                         
                         invoiceId = newInvoice.rows[0].id
@@ -184,7 +186,7 @@ export const recurrenceRepository = {
                         `INSERT INTO credit_card_movements(user_id, credit_card_id, invoice_id, categorie_id, description_credit, value_transaction, purchase_date, installment_number, recurrence_id, status_movement, observation, installment_total) 
                         VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
                         RETURNING id `,
-                        [userId, valor.credit_card_id, invoiceId, valor.categorie_id, valor.description_credit, valor.value_transaction, valor.purchase_date, indice + 1, recurrenceId, valor.status_movement, valor.observation, indice + 1]
+                        [userId, valor.credit_card_id, invoiceId, valor.categorie_id, valor.description_credit, valor.value_transaction, purchaseDateOriginal, indice + 1, recurrenceId, valor.status_movement, valor.observation, indice + 1]
                     )
 
 
@@ -309,8 +311,6 @@ export const recurrenceRepository = {
 
     //---------------------------------------------------------------------------------------------------------------------------
     async updateOnlyMovementRecurrenceCreditCard(id:number, data: TMovementCreditCardPayload, choiceOption: string, userId: string, recurrenceId: number) {
-
-        console.log("Atualizando movimentao do cartoa.... " + id, JSON.stringify(data), choiceOption, recurrenceId)
 
         const conn = await client.connect() 
 

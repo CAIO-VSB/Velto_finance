@@ -113,8 +113,6 @@ export const movementsCreditCardRespository = {
 
     async update(id: number, userId: string, data: TMovementCreditCardPayload, choice: string) {
 
-        console.log("Choice chegando aqui " + choice)
-
         const conn = await client.connect()  // fixa uma conexão dedicada
 
         try {
