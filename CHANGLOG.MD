@@ -9,6 +9,12 @@ Todas as mudanças notáveis deste projeto serão documentadas aqui.
 ## 1.1.1 — correções, ajustes visuais e pequenas melhorias.
 
 
+## [1.7.6] - 2026-10-07
+
+### Corrigido
+
+- Correção de dependência faltando no projeto
+
 ## [1.7.5] - 2026-10-07
 
 ### Corrigido

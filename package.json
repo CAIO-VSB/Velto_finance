@@ -52,6 +52,7 @@
     "@types/node": "^24.6.1",
     "@types/nodemailer": "^7.0.2",
     "@types/pg": "^8.16.0",
+    "ipx": "^4.0.0-beta.1",
     "node-pg-migrate": "^8.0.4",
     "sass": "^1.89.2",
     "ts-node": "^10.9.2",

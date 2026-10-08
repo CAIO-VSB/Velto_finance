@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
-$appImage = "caiodev2002/velto-finance:1.7.5"
-$migrateImage = "caiodev2002/velto-finance-migrate:1.7.5"
+$appImage = "caiodev2002/velto-finance:1.7.6"
+$migrateImage = "caiodev2002/velto-finance-migrate:1.7.6"
 
 function Invoke-Docker {
   param([Parameter(ValueFromRemainingArguments = $true)][string[]]$DockerArgs)
