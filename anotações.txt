@@ -13,3 +13,19 @@ datetime(ano, mes, dia, hora, minuto, segundo)
 :deep(.v-data-table-header__content) {
   font-weight: bold;
 }
+
+
+<td class="text-capitalize">{{item.type_recurrence|| "avulsa" }}</td>
+
+<td>{{ formatDate(item.date_transaction) }}</td>
+
+<td>
+
+  <span>{{ item.description_transaction }}
+
+    <span v-if="item.total_installments">
+        {{ `(${item.installment_current} / ${item.total_installments})` }}
+    </span>
+  </span>
+
+</td>

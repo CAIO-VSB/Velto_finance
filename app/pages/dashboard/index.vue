@@ -30,6 +30,17 @@
         year: new Date().getFullYear(),
     })
 
+    const search = ref('')
+
+    const headers = [
+        { key: 'status_transaction', title: 'Situação', align: 'center' as const },
+        { key: 'date_transaction', title: 'Data' },
+        { key: 'description_transaction', title: 'Descrição' },
+        { key: 'value_transaction', title: 'Valor' },
+        { key: 'name_accounts', title: 'Conta' },
+    ]
+    
+
     const showDialogHelpDashboard = ref(false)
 
     const { data:expenseByCategorie, isPending:isPendingExpenseByCategorie, refetch:refetchByCategorieExpense } = useQuery({
@@ -194,6 +205,20 @@
     const { option: balanceEvolution } = useLineChart(computed(() => allBalanceEvolution.value ?? []))
 
 
+    function originIcon(type: string) {
+        const icons: Record<string, string> = {
+            account: 'mdi-bank-outline',
+            card: 'mdi-credit-card-outline',
+            goal: 'mdi-piggy-bank-outline',
+        }
+        return icons[type] ?? 'mdi-bank-outline'
+    }
+
+    function valueColor(type: string) {
+        if (type === 'receita' || type === 'transferencia_entrada') return 'green'
+        if (type === 'meta') return 'primary'
+        return 'red'
+    }
 
 </script>
 
@@ -320,52 +345,66 @@
                         </span>
                     </template>
                 </v-empty-state>
-                <div class="pa-5" v-else>
+
+                <div class="pa-2" v-else>
                     <v-table height="200px">
                         <thead>
                             <tr>
-                                <th class="text-left font-weight-bold">
-                                Tipo
+                                <th class="text-center font-weight-bold">
+                                Situação
                                 </th>
-                                <th class="text-left font-weight-bold">
+                                <th class="text-center font-weight-bold">
                                 Data
                                 </th>
-                                <th class="text-left font-weight-bold">
+                                <th class="text-center font-weight-bold">
                                 Descrição
                                 </th>
-                                <th class="text-left font-weight-bold">
+                                <th class="text-center font-weight-bold">
                                 valor
-                                </th>
-                                <th class="text-left font-weight-bold">
-                                Conta bancária
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr
                                 v-for="item in allLastMovements"
-                                :key="item.id"
+                                :key="`${item.origin_type}-${item.id}`"
                             >
-                                <td class="text-capitalize">{{item.type_recurrence|| "avulsa" }}</td>
+                                <td class="d-flex align-center justify-center">
+                                    <v-icon
+                                        :color="item.status_transaction === 'recebido' || item.status_transaction === 'entrada' || item.status_transaction === 'saida' || item.status_transaction === 'pago' ? 'green' : 'red'"
+                                        :icon="item.status_transaction === 'recebido' || item.status_transaction === 'saida' || item.status_transaction === 'entrada' || item.status_transaction === 'pago' ? 'mdi-check-circle' : 'mdi-alert-circle'"
+                                    />
 
-                                <td>{{ formatDate(item.date_transaction) }}</td>
-
-                                <td>
-                                    <span>{{ item.description_transaction }}
-
-                                    <span v-if="item.total_installments">
-                                        {{ `(${item.installment_current} / ${item.total_installments})` }}
-                                    </span>
-
-                                </span>
+                                    <v-tooltip
+                                        activator="parent"
+                                        location="top"
+                                    >
+                                        {{ item.status_transaction === 'recebido' || item.status_transaction === 'entrada' || item.status_transaction === 'pago' ? 'Efetivada' : 'Pendente' }}
+                                    </v-tooltip>
                                 </td>
-                                <td><v-chip :color="item.type_transaction === 'receita' || item.type_transaction === 'transferencia_entrada' ? 'green' : 'red'">{{ formatCurrency(item.value_transaction)}}</v-chip></td>
-                                <td>{{ item.name_accounts }}</td>
+
+                                <td class="text-center">{{ formatDate(item.date_transaction) }}</td>
+
+                                <td class="text-center">
+                                    <div class="d-flex flex-column">
+                                        <span>
+                                            {{ item.description_transaction }}
+                                            <span v-if="item.total_installments" class="text-medium-emphasis">
+                                                ({{ item.installment_current }}/{{ item.total_installments }})
+                                            </span>
+                                        </span>
+                                        <span class="text-caption text-medium-emphasis d-flex align-center justify-center ga-2">
+                                            <v-icon color="primary" :icon="originIcon(item.origin_type)" size="20" />
+                                            {{ item.origin_name }}
+                                        </span>
+                                    </div>
+                                </td>
+                                
+                                <td class="text-center"><v-chip :color="valueColor(item.type_transaction)">{{ formatCurrency(item.value_transaction)}}</v-chip></td>
                             </tr>
                         </tbody>
                     </v-table>
                 </div>
-                
             </BaseCard>
 
             <BaseCard :loading="isPendingByCategorieRenevue" title="Frequência de gastos" subtitle="Identifique os períodos com mais gastos" >
@@ -618,6 +657,10 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+:deep(.v-data-table-header__content) {
+  font-weight: bold;
 }
 
 @media (min-width: 1450px) {

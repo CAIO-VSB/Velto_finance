@@ -620,7 +620,7 @@
                 md="3"
             >
                 <AppCard
-                    subtitle="Balanço mensal"
+                    subtitle="Total"
                     :loading="isPending"
                     size="40"
                     :value="sumary.total_geral"

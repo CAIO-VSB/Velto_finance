@@ -9,6 +9,18 @@ Todas as mudanças notáveis deste projeto serão documentadas aqui.
 ## 1.1.1 — correções, ajustes visuais e pequenas melhorias.
 
 
+## [1.7.8] - 2026-10-10
+
+### Refatorado
+
+- Card de últimos lançamentos mostrando mais informaçãoes
+
+## [1.7.7] - 2026-10-10
+
+### Corrigido
+
+- Corrigi um pequeno bug no card de evolução de saldo, contas arquivas somando no total
+
 ## [1.7.6] - 2026-10-07
 
 ### Corrigido

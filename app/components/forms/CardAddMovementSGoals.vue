@@ -75,7 +75,7 @@
   function resetForm() {
     movementGoalsForm.value.value_paid = 0.00
     movementGoalsForm.value.goals_id = null
-    movementGoalsForm.value.description = ""
+    movementGoalsForm.value.description = "Sem descrição"
     movementGoalsForm.value.date_movement = new Date()
     movementGoalsForm.value.accounts_id = null
     modelGoals.value = null
@@ -138,7 +138,7 @@
       <v-dialog v-model="modelValue" max-width="600">
         <v-card rounded="lg" elevation="6">
           <v-card-item class="pa-4 pb-2">
-            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken-4">
+            <v-card-title class="text-h6 font-weight-bold text-blue-grey-darken">
               Nova aplicação
             </v-card-title>
 
