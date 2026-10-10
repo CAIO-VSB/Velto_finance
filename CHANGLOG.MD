@@ -9,6 +9,24 @@ Todas as mudanças notáveis deste projeto serão documentadas aqui.
 ## 1.1.1 — correções, ajustes visuais e pequenas melhorias.
 
 
+## [1.7.11] - 2026-10-10
+
+### Adiciona
+
+- Adiciona situação da compra do cartão no dashboard
+
+## [1.7.10] - 2026-10-10
+
+### Corrigido
+
+- Correções nos cards para tema escuro
+
+## [1.7.9] - 2026-10-10
+
+### Corrigido
+
+- Correção migration - função não retornava todos os dados
+
 ## [1.7.8] - 2026-10-10
 
 ### Refatorado

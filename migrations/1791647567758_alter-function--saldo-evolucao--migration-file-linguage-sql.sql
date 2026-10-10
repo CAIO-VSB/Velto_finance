@@ -1,4 +1,4 @@
-DROP FUNCTION public.fn_evolucao_saldo(character varying, integer, integer)
+DROP FUNCTION public.fn_evolucao_saldo(character varying, integer, integer);
 
 CREATE OR REPLACE FUNCTION public.fn_evolucao_saldo(
 	p_user_id character varying,

@@ -218,7 +218,7 @@
     </div>
 
     <div class="text-caption text-medium-emphasis text-center mt-1">
-      Versão 1.7.8
+      Versão 1.7.11
     </div>
   </div>
 </template>

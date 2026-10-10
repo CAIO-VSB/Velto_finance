@@ -1,4 +1,4 @@
---DROP FUNCTION IF EXISTS public.fn_last_movements(character varying, integer, integer);
+DROP FUNCTION IF EXISTS public.fn_last_movements(character varying, integer, integer);
 
 CREATE OR REPLACE FUNCTION public.fn_last_movements(
 	p_user_id character varying,

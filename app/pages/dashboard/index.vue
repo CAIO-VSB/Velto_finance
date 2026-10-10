@@ -220,6 +220,11 @@
         return 'red'
     }
 
+    function isDone(item: { origin_type: string, status_transaction: string }) {
+        if (item.origin_type === 'card') return item.status_transaction === 'ativa'
+        return ['recebido', 'entrada', 'saida', 'pago'].includes(item.status_transaction)
+    }
+
 </script>
 
 <template>
@@ -369,18 +374,18 @@
                                 v-for="item in allLastMovements"
                                 :key="`${item.origin_type}-${item.id}`"
                             >
-                                <td class="d-flex align-center justify-center">
-                                    <v-icon
-                                        :color="item.status_transaction === 'recebido' || item.status_transaction === 'entrada' || item.status_transaction === 'saida' || item.status_transaction === 'pago' ? 'green' : 'red'"
-                                        :icon="item.status_transaction === 'recebido' || item.status_transaction === 'saida' || item.status_transaction === 'entrada' || item.status_transaction === 'pago' ? 'mdi-check-circle' : 'mdi-alert-circle'"
-                                    />
-
-                                    <v-tooltip
-                                        activator="parent"
-                                        location="top"
-                                    >
-                                        {{ item.status_transaction === 'recebido' || item.status_transaction === 'entrada' || item.status_transaction === 'pago' ? 'Efetivada' : 'Pendente' }}
-                                    </v-tooltip>
+                                <td>
+                                    <div class="d-flex align-center justify-center">
+                                        <v-icon
+                                            :color="isDone(item) ? 'green' : 'red'"
+                                            :icon="isDone(item) ? 'mdi-check-circle' : 'mdi-alert-circle'"
+                                        />
+                                        <v-tooltip activator="parent" location="top">
+                                            <span class="text-capitalize">
+                                                {{ item.origin_type === 'card' ? item.status_transaction : (isDone(item) ? 'Efetivada' : 'Pendente') }}
+                                            </span>
+                                        </v-tooltip>
+                                    </div>
                                 </td>
 
                                 <td class="text-center">{{ formatDate(item.date_transaction) }}</td>
